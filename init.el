@@ -901,6 +901,10 @@
 ;(use-package org-modern
 ;  :hook (org-mode . org-modern-mode))
 
+(use-package ox-gfm
+  :ensure t
+  :after org)
+
 
 
 (use-package org-roam

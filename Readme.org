@@ -1,8 +1,6 @@
 #+title: Emacs configuration
 #+PROPERTY: header-args:emacs-lisp :tangle ~/.emacs.d/init.el :mkdirp yes
 
-
-
 * Basic UI Configuration
 
 #+begin_src emacs-lisp
@@ -1488,6 +1486,12 @@ for chinese:
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 #+end_src>
 
+*** org to markdown
+#+begin_src emacs-lisp
+    (use-package ox-gfm
+      :ensure t
+      :after org)
+#+end_src
 ** Org Latex Preview
 
 #+begin_src emacs-lisp
