@@ -1414,6 +1414,7 @@
   (add-to-list 'load-path (concat path-to-popweb "/extension/latex"))
   (require 'popweb-latex)
   (add-hook 'latex-mode-hook #'popweb-latex-mode)
+  (add-hook 'org-mode-hook #'popweb-latex-mode)
 
   ;; Chinese-English translation popup
   (add-to-list 'load-path (concat path-to-popweb "/extension/dict")) ;
@@ -1423,3 +1424,9 @@
   (add-to-list 'load-path (concat path-to-popweb "/extension/anki-review"))
   (require 'popweb-anki-review)
   )
+
+(autoload 'LilyPond-mode "lilypond-mode")
+(setq auto-mode-alist
+      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+(setq load-path (append (list (expand-file-name "/usr/share/emacs/site-lisp")) load-path))
