@@ -907,6 +907,10 @@ A package to deal with github, I think i don't need it for a while
 
 #+end_src
 
+** Long Line related
+#+begin_src emacs-lisp
+(setq-default bidi-paragraph-direction 'left-to-right)
+#+end_src
 * Terminals
 ** term-mode
 
@@ -2066,5 +2070,10 @@ TODO DONE [#A] [#B] [90%] [12/56]
         (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
   (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
   (setq load-path (append (list (expand-file-name "/usr/share/emacs/site-lisp")) load-path))
+
+#+end_src
+
+* Org repetition system
+#+begin_src emacs-lisp
 
 #+end_src

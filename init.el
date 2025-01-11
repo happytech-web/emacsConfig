@@ -590,6 +590,8 @@
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 ;(use-package forge)
 
+(setq-default bidi-paragraph-direction 'left-to-right)
+
 (use-package term
   :config
   (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
@@ -1430,3 +1432,5 @@
       (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 (setq load-path (append (list (expand-file-name "/usr/share/emacs/site-lisp")) load-path))
+
+
