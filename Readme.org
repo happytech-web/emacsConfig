@@ -648,6 +648,11 @@ still some bug in dap mode typescript, because I'm not sure how to find the comp
     (require 'dap-python))
 
 
+  (use-package pyvenv
+    :ensure t
+    :config
+    (setenv "WORKON_HOME" (expand-file-name "~/anaconda3/envs"))
+    (pyvenv-mode t))
 
     ;  (use-package pyvenv
     ;    :ensure t
@@ -1975,10 +1980,11 @@ TODO DONE [#A] [#B] [90%] [12/56]
 #+begin_src emacs-lisp
   (rune/leader-keys
     "t" '(:ignore t :which-key "tab-bar")
-    "tk" '(tab-bar-switch-to-prev-tab :which-key "prev-tab") 
-    "tj" '(tab-bar-switch-to-next-tab :which-key "next-tab") 
+    "th" '(tab-bar-switch-to-prev-tab :which-key "prev-tab") 
+    "tl" '(tab-bar-switch-to-next-tab :which-key "next-tab") 
     "ti" '(tab-bar-new-tab :which-key "insert-new-tab") 
     "ts" '(tab-bar-select-tab-by-name :which-key "select-tab")
+    "td" '(tab-bar-close-tab :which-key "close-tab")
     )
 #+end_src
 
@@ -2076,4 +2082,18 @@ TODO DONE [#A] [#B] [90%] [12/56]
 * Org repetition system
 #+begin_src emacs-lisp
 
+  (defvar path-to-org-srs "~/.emacs.d/pluginTools/org-srs")
+  (defvar path-to-fsrs "~/.emacs.d/pluginTools/fsrs")
+
+  (add-to-list 'load-path path-to-org-srs)
+  (add-to-list 'load-path path-to-fsrs)
+  (require 'fsrs)
+  (require 'org-srs)
+
+#+end_src
+
+* uniline
+#+begin_src emacs-lisp
+  (use-package uniline
+    :ensure t)
 #+end_src

@@ -415,6 +415,11 @@
   (require 'dap-python))
 
 
+(use-package pyvenv
+  :ensure t
+  :config
+  (setenv "WORKON_HOME" (expand-file-name "~/anaconda3/envs"))
+  (pyvenv-mode t))
 
   ;  (use-package pyvenv
   ;    :ensure t
@@ -1348,10 +1353,11 @@
 
 (rune/leader-keys
   "t" '(:ignore t :which-key "tab-bar")
-  "tk" '(tab-bar-switch-to-prev-tab :which-key "prev-tab") 
-  "tj" '(tab-bar-switch-to-next-tab :which-key "next-tab") 
+  "th" '(tab-bar-switch-to-prev-tab :which-key "prev-tab") 
+  "tl" '(tab-bar-switch-to-next-tab :which-key "next-tab") 
   "ti" '(tab-bar-new-tab :which-key "insert-new-tab") 
   "ts" '(tab-bar-select-tab-by-name :which-key "select-tab")
+  "td" '(tab-bar-close-tab :which-key "close-tab")
   )
 
 (use-package eaf
@@ -1433,4 +1439,27 @@
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 (setq load-path (append (list (expand-file-name "/usr/share/emacs/site-lisp")) load-path))
 
+(defvar path-to-org-srs "~/.emacs.d/pluginTools/org-srs")
+(defvar path-to-fsrs "~/.emacs.d/pluginTools/fsrs")
 
+(add-to-list 'load-path path-to-org-srs)
+(add-to-list 'load-path path-to-fsrs)
+(require 'fsrs)
+(require 'org-srs)
+
+(use-package uniline
+  :ensure t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-show-quick-access t nil nil "Customized with use-package company")
+ '(package-selected-packages
+   '(pyvenv which-key vterm visual-fill-column uniline typescript-mode treemacs-projectile svg-tag-mode ros rainbow-delimiters python-mode pdf-tools ox-hugo ox-gfm org-transclusion org-roam org-noter org-download org-bullets magit lsp-ui lsp-pyright lsp-java lsp-ivy leetcode key-chord ivy-rich helpful go-translate general flycheck exec-path-from-shell evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt doom-themes doom-modeline dired-single dired-open dired-hide-dotfiles counsel company-box all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
