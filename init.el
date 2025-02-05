@@ -33,10 +33,10 @@
 
 ;; Font Configuration ------------------------------------------------------
 
-(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
+(set-face-attribute 'default nil :font "Fira Code" :height efs/default-font-size)
 
 ;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
+(set-face-attribute 'fixed-pitch nil :font "Fira Code" :height efs/default-font-size)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "LXGW WenKai" :height efs/default-variable-font-size :weight 'regular)
 (setq all-the-icons-dired-monochrome nil)  ;; 关闭单色图标模式,在文件系统中看起来更好
@@ -272,44 +272,43 @@
 
 (use-package lsp-ivy)
 
-(use-package dap-mode
-  ;; Uncomment the config below if you want all UI panes to be hidden by default!
-                                        ;:custom
-  :custom
-  (dap-auto-configure-features '(locals expressions controls))
-  (setq lsp-enable-dap-auto-configure t)
-  :config
-  (dap-ui-mode 1)
-  (setq dap-auto-show-output 1)
+;; (use-package dap-mode
+;;   ;; Uncomment the config below if you want all UI panes to be hidden by default!
+;;                                         ;:custom
+;;   :custom
+;;   (dap-auto-configure-features '(locals expressions controls))
+;;   (lsp-enable-dap-auto-configure t)
+;;   :config
+;;   (dap-ui-mode 1)
+;;   (setq dap-auto-show-output 1)
 
-  :config
-  ;; Set up Node debugging
-  (require 'dap-node)
-  (dap-node-setup) ;; Automatically installs Node debug adapter if needed
-  ;; Set up GDB
-  (require 'dap-gdb-lldb)
-  (dap-gdb-lldb-setup)
+;;   ;; Set up Node debugging
+;;   (require 'dap-node)
+;;   (dap-node-setup) ;; Automatically installs Node debug adapter if needed
+;;   ;; Set up GDB
+;;   (require 'dap-gdb-lldb)
+;;   (dap-gdb-lldb-setup)
 
-  (require 'dap-python)
-  (setq dap-python-debugger 'debugpy)
-  ;; Bind `, l d` to `dap-hydra` for easy access
-  (general-def
-    :prefix ","
-    :states 'motion
-    :keymaps 'lsp-mode-map
-    ;; dap
-    "d" '(nil :which-key "dap")
-    "dr" '(dap-debug :which-key "debug")
-    "di" '(dap-breakpoint-add :which-key "add breakpoint")
-    "dd" '(dap-breakpoint-delete :which-key "delete breakpoint")
-    "dD" '(dap-breakpoint-delete-all :which-key "delete all breakpoints")
-    "dc" '(dap-breakpoint-condition :which-key "condition")
-    "dh" '(dap-hydra t :wk "helpper map"))
-  ;(general-define-key
-  ; :keymaps 'lsp-mode-map
-  ; :prefix lsp-keymap-prefix
-  ; "d" '(dap-hydra t :wk "debugger"))
-  )
+;;   (require 'dap-python)
+;;   (setq dap-python-debugger 'debugpy)
+;;   ;; Bind `, l d` to `dap-hydra` for easy access
+;;   (general-def
+;;     :prefix ","
+;;     :states 'motion
+;;     :keymaps 'lsp-mode-map
+;;     ;; dap
+;;     "d" '(nil :which-key "dap")
+;;     "dr" '(dap-debug :which-key "debug")
+;;     "di" '(dap-breakpoint-add :which-key "add breakpoint")
+;;     "dd" '(dap-breakpoint-delete :which-key "delete breakpoint")
+;;     "dD" '(dap-breakpoint-delete-all :which-key "delete all breakpoints")
+;;     "dc" '(dap-breakpoint-condition :which-key "condition")
+;;     "dh" '(dap-hydra t :wk "helpper map"))
+;;   ;(general-define-key
+;;   ; :keymaps 'lsp-mode-map
+;;   ; :prefix lsp-keymap-prefix
+;;   ; "d" '(dap-hydra t :wk "debugger"))
+;;   )
 
 (defun file-name-only ()
   "Get the current buffer file name without directory."
@@ -644,17 +643,26 @@
 
   (eshell-git-prompt-use-theme 'powerline))
 
+;; (use-package dired-single)
+;; (require 'dired-single)
+
 (use-package dired
   :ensure nil
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
   :custom ((dired-listing-switches "-agho --group-directories-first"))
   :config
+  (put 'dired-find-alternate-file 'disabled nil)
   (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer))
-
-(use-package dired-single)
+    "h" (lambda () (interactive) (find-alternate-file ".."))
+    "l" 'dired-find-alternate-file)
+  ;; (evil-collection-define-key 'normal 'dired-mode-map
+  ;;   "h" (lambda()(interactive)(find-alternate-file ".."))
+  ;;   "l" dired-find-alternate-file
+  ;;   ;; "h" 'dired-single-up-directory
+  ;;   ;; "l" 'dired-single-buffer
+  ;;   )
+  )
 
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
@@ -1360,106 +1368,97 @@
   "td" '(tab-bar-close-tab :which-key "close-tab")
   )
 
-(use-package eaf
-  :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
-  :custom
-  ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
-  (eaf-browser-continue-where-left-off t)
-  (eaf-browser-enable-adblocker t)
-  (browse-url-browser-function 'eaf-open-browser)
-  :config
-  (setq eaf-proxy-type "http")
-  (setq eaf-proxy-host "127.0.0.1")
-  (setq eaf-proxy-port "7897")
-  (defalias 'browse-web #'eaf-open-browser)
-  ;;(eaf-setup-leader-keys)
-  ;;(eaf-bind-key take_photo "p" eaf-camera-keybinding)
-  ;;(eaf-bind-key nil "M-q" eaf-browser-keybinding)
+;; (use-package eaf
+;;   :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
+;;   :custom
+;;   ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
+;;   (eaf-browser-continue-where-left-off t)
+;;   (eaf-browser-enable-adblocker t)
+;;   (browse-url-browser-function 'eaf-open-browser)
+;;   :config
+;;   (setq eaf-proxy-type "http")
+;;   (setq eaf-proxy-host "127.0.0.1")
+;;   (setq eaf-proxy-port "7897")
+;;   (defalias 'browse-web #'eaf-open-browser)
+;;   ;;(eaf-setup-leader-keys)
+;;   ;;(eaf-bind-key take_photo "p" eaf-camera-keybinding)
+;;   ;;(eaf-bind-key nil "M-q" eaf-browser-keybinding)
 
-  (require 'eaf-browser)
-  (require 'eaf-rss-reader)
-  (require 'eaf-image-viewer)
-  (require 'eaf-airshare)
-  (require 'eaf-netease-cloud-music)
-  (require 'eaf-demo)
-  (require 'eaf-file-sender)
-  (require 'eaf-js-video-player)
-  ;;(require 'eaf-pdf-viewer)
-  ;;(require 'eaf-git)
-  (require 'eaf-terminal)
-  ;;(require 'eaf-vue-demo)
-  (require 'eaf-file-manager)
-  ;;(require 'eaf-vue-tailwindcss)
-  (require 'eaf-system-monitor)
-  (require 'eaf-file-browser)
-  (require 'eaf-jupyter)
-  (require 'eaf-markdown-previewer)
-  (require 'eaf-camera)
-  (require 'eaf-markmap)
-  ;;(require 'eaf-pyqterminal)
-  (require 'eaf-video-player)
-  (require 'eaf-music-player)
-  (require 'eaf-map)
-  (require 'eaf-mindmap)
-  ;; key bindings and other
-  (require 'eaf-evil)
-  (require 'eaf-all-the-icons)
-  ) ;; unbind, see more in the Wiki
+;;   (require 'eaf-browser)
+;;   (require 'eaf-rss-reader)
+;;   (require 'eaf-image-viewer)
+;;   (require 'eaf-airshare)
+;;   (require 'eaf-netease-cloud-music)
+;;   (require 'eaf-demo)
+;;   (require 'eaf-file-sender)
+;;   (require 'eaf-js-video-player)
+;;   ;;(require 'eaf-pdf-viewer)
+;;   ;;(require 'eaf-git)
+;;   (require 'eaf-terminal)
+;;   ;;(require 'eaf-vue-demo)
+;;   (require 'eaf-file-manager)
+;;   ;;(require 'eaf-vue-tailwindcss)
+;;   (require 'eaf-system-monitor)
+;;   (require 'eaf-file-browser)
+;;   (require 'eaf-jupyter)
+;;   (require 'eaf-markdown-previewer)
+;;   (require 'eaf-camera)
+;;   (require 'eaf-markmap)
+;;   ;;(require 'eaf-pyqterminal)
+;;   (require 'eaf-video-player)
+;;   (require 'eaf-music-player)
+;;   (require 'eaf-map)
+;;   (require 'eaf-mindmap)
+;;   ;; key bindings and other
+;;   (require 'eaf-evil)
+;;   (require 'eaf-all-the-icons)
+;;   ) ;; unbind, see more in the Wiki
 
-(defvar path-to-popweb "~/.emacs.d/pluginTools/popweb")
-(use-package org-transclusion
-  :ensure t)
-(use-package popweb
-  :load-path path-to-popweb
-  :config
-  (setq popweb-url-web-window-width-scale 1.5)
-  (setq popweb-url-web-window-height-scale 1.5)
-  ;; Org-Roam ID link and footnote link previewer
-  (add-to-list 'load-path (concat path-to-popweb "/extension/org-roam"))
-  (require 'popweb-org-roam-link)
+;; (defvar path-to-popweb "~/.emacs.d/pluginTools/popweb")
+;; (use-package org-transclusion
+;;   :ensure t)
+;; (use-package popweb
+;;   :load-path path-to-popweb
+;;   :config
+;;   (setq popweb-url-web-window-width-scale 1.5)
+;;   (setq popweb-url-web-window-height-scale 1.5)
+;;   ;; Org-Roam ID link and footnote link previewer
+;;   (add-to-list 'load-path (concat path-to-popweb "/extension/org-roam"))
+;;   (require 'popweb-org-roam-link)
 
-  ;; LaTeX preview functionality
-  (add-to-list 'load-path (concat path-to-popweb "/extension/latex"))
-  (require 'popweb-latex)
-  (add-hook 'latex-mode-hook #'popweb-latex-mode)
-  (add-hook 'org-mode-hook #'popweb-latex-mode)
+;;   ;; LaTeX preview functionality
+;;   (add-to-list 'load-path (concat path-to-popweb "/extension/latex"))
+;;   (require 'popweb-latex)
+;;   (add-hook 'latex-mode-hook #'popweb-latex-mode)
+;;   (add-hook 'org-mode-hook #'popweb-latex-mode)
 
-  ;; Chinese-English translation popup
-  (add-to-list 'load-path (concat path-to-popweb "/extension/dict")) ;
-  (require 'popweb-dict)
+;;   ;; Chinese-English translation popup
+;;   (add-to-list 'load-path (concat path-to-popweb "/extension/dict")) ;
+;;   (require 'popweb-dict)
 
-  ;; Anki note review popup
-  (add-to-list 'load-path (concat path-to-popweb "/extension/anki-review"))
-  (require 'popweb-anki-review)
-  )
+;;   ;; Anki note review popup
+;;   (add-to-list 'load-path (concat path-to-popweb "/extension/anki-review"))
+;;   (require 'popweb-anki-review)
+;;   )
 
-(autoload 'LilyPond-mode "lilypond-mode")
-(setq auto-mode-alist
-      (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
-(setq load-path (append (list (expand-file-name "/usr/share/emacs/site-lisp")) load-path))
+;; (autoload 'LilyPond-mode "lilypond-mode")
+;; (setq auto-mode-alist
+;;       (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+;; (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+;; (setq load-path (append (list (expand-file-name "/usr/share/emacs/site-lisp")) load-path))
 
-(defvar path-to-org-srs "~/.emacs.d/pluginTools/org-srs")
-(defvar path-to-fsrs "~/.emacs.d/pluginTools/fsrs")
+;; (defvar path-to-org-srs "~/.emacs.d/pluginTools/org-srs")
+;; (defvar path-to-fsrs "~/.emacs.d/pluginTools/fsrs")
 
-(add-to-list 'load-path path-to-org-srs)
-(add-to-list 'load-path path-to-fsrs)
-(require 'fsrs)
-(require 'org-srs)
+;; (add-to-list 'load-path path-to-org-srs)
+;; (add-to-list 'load-path path-to-fsrs)
+;; (require 'fsrs)
+;; (require 'org-srs)
 
 (use-package uniline
   :ensure t)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-show-quick-access t nil nil "Customized with use-package company")
- '(package-selected-packages
-   '(pyvenv which-key vterm visual-fill-column uniline typescript-mode treemacs-projectile svg-tag-mode ros rainbow-delimiters python-mode pdf-tools ox-hugo ox-gfm org-transclusion org-roam org-noter org-download org-bullets magit lsp-ui lsp-pyright lsp-java lsp-ivy leetcode key-chord ivy-rich helpful go-translate general flycheck exec-path-from-shell evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt doom-themes doom-modeline dired-single dired-open dired-hide-dotfiles counsel company-box all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+(use-package nix-mode
+  :ensure t
+  :hook (nix-mode . lsp-deferred)
+  :mode "\\.nix\\'")
