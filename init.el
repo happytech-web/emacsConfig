@@ -1,6 +1,6 @@
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 200)
-(defvar efs/default-variable-font-size 250)
+(defvar efs/default-font-size 130)
+(defvar efs/default-variable-font-size 150)
 
 (setq inhibit-startup-message t)
 
@@ -417,7 +417,7 @@
 (use-package pyvenv
   :ensure t
   :config
-  (setenv "WORKON_HOME" (expand-file-name "~/anaconda3/envs"))
+  ; (setenv "WORKON_HOME" (expand-file-name "~/anaconda3/envs"))
   (pyvenv-mode t))
 
   ;  (use-package pyvenv
@@ -494,6 +494,11 @@
          (ros-dump-workspace :tramp-prefix nil :workspace "~/codes/rosWorkspace/tutorial_ws" :extends '("/opt/ros/humble/")))
         )
   )
+
+(use-package nix-mode
+  :ensure t
+  :hook (nix-mode . lsp-deferred)
+  :mode "\\.nix\\'")
 
 (use-package evil-nerd-commenter
   :bind ("C-/" . evilnc-comment-or-uncomment-lines))
@@ -595,6 +600,10 @@
 ;(use-package forge)
 
 (setq-default bidi-paragraph-direction 'left-to-right)
+
+(use-package direnv
+  :config
+  (direnv-mode))
 
 (use-package term
   :config
@@ -1457,8 +1466,16 @@
 
 (use-package uniline
   :ensure t)
-
-(use-package nix-mode
-  :ensure t
-  :hook (nix-mode . lsp-deferred)
-  :mode "\\.nix\\'")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(direnv which-key vterm visual-fill-column uniline typescript-mode treemacs-projectile svg-tag-mode ros rainbow-delimiters pyvenv python-mode pdf-tools ox-hugo ox-gfm org-transclusion org-roam org-noter org-download org-bullets nix-mode magit lsp-ui lsp-pyright lsp-java lsp-ivy leetcode key-chord ivy-rich helpful go-translate general flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt doom-themes doom-modeline dired-open dired-hide-dotfiles counsel company-box all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
