@@ -417,7 +417,7 @@
 (use-package pyvenv
   :ensure t
   :config
-  (setenv "WORKON_HOME" (expand-file-name "~/anaconda3/envs"))
+  ; (setenv "WORKON_HOME" (expand-file-name "~/anaconda3/envs"))
   (pyvenv-mode t))
 
   ;  (use-package pyvenv
@@ -494,6 +494,11 @@
          (ros-dump-workspace :tramp-prefix nil :workspace "~/codes/rosWorkspace/tutorial_ws" :extends '("/opt/ros/humble/")))
         )
   )
+
+(use-package nix-mode
+  :ensure t
+  :hook (nix-mode . lsp-deferred)
+  :mode "\\.nix\\'")
 
 (use-package evil-nerd-commenter
   :bind ("C-/" . evilnc-comment-or-uncomment-lines))
@@ -595,6 +600,10 @@
 ;(use-package forge)
 
 (setq-default bidi-paragraph-direction 'left-to-right)
+
+(use-package direnv
+  :config
+  (direnv-mode))
 
 (use-package term
   :config
@@ -1457,8 +1466,3 @@
 
 (use-package uniline
   :ensure t)
-
-(use-package nix-mode
-  :ensure t
-  :hook (nix-mode . lsp-deferred)
-  :mode "\\.nix\\'")

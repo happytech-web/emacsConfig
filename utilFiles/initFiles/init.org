@@ -6,38 +6,38 @@
 
 #+begin_src emacs-lisp
 
-    ;; You will most likely need to adjust this font size for your system!
-    (defvar efs/default-font-size 130)
-    (defvar efs/default-variable-font-size 150)
+  ;; You will most likely need to adjust this font size for your system!
+  (defvar efs/default-font-size 130)
+  (defvar efs/default-variable-font-size 150)
 
-    (setq inhibit-startup-message t)
+  (setq inhibit-startup-message t)
 
-    (scroll-bar-mode -1) ;disable visible scrollbar
-    (tool-bar-mode -1)   ;disable toolbar
-    (tooltip-mode -1)    ;disable tooltips
-    (set-fringe-mode 10) ;give some breathing room
+  (scroll-bar-mode -1) ;disable visible scrollbar
+  (tool-bar-mode -1)   ;disable toolbar
+  (tooltip-mode -1)    ;disable tooltips
+  (set-fringe-mode 10) ;give some breathing room
 
-    (menu-bar-mode -1)   ;disable the munu bar
+  (menu-bar-mode -1)   ;disable the munu bar
 
-    ;; set up the visible bell
-    (setq visible-bell t)
+  ;; set up the visible bell
+  (setq visible-bell t)
 
-    ;; display line numbers
-    (column-number-mode)
-    (global-display-line-numbers-mode t)
+  ;; display line numbers
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
 
-    ;; Disable line numbers for some modes
-    (dolist (mode '(org-mode-hook
-                  term-mode-hook
-                  shell-mode-hook
-                  vterm-mode-hook
-                  treemacs-mode-hook
-                  eshell-mode-hook
-                  pdf-view-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  ;; Disable line numbers for some modes
+  (dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                vterm-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook
+                pdf-view-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-    ;; parenthesis completion
-    (electric-pair-mode 1)
+  ;; parenthesis completion
+  (electric-pair-mode 1)
 
 #+end_src
 
@@ -651,7 +651,7 @@ still some bug in dap mode typescript, because I'm not sure how to find the comp
   (use-package pyvenv
     :ensure t
     :config
-    (setenv "WORKON_HOME" (expand-file-name "~/anaconda3/envs"))
+    ; (setenv "WORKON_HOME" (expand-file-name "~/anaconda3/envs"))
     (pyvenv-mode t))
 
     ;  (use-package pyvenv
@@ -750,6 +750,13 @@ run command: *npm install -g pyright* to install pyright
            (ros-dump-workspace :tramp-prefix nil :workspace "~/codes/rosWorkspace/tutorial_ws" :extends '("/opt/ros/humble/")))
           )
     )
+#+end_src
+*** nix
+#+begin_src emacs-lisp
+  (use-package nix-mode
+    :ensure t
+    :hook (nix-mode . lsp-deferred)
+    :mode "\\.nix\\'")
 #+end_src
 ** Commenting
 
@@ -915,6 +922,12 @@ A package to deal with github, I think i don't need it for a while
 ** Long Line related
 #+begin_src emacs-lisp
 (setq-default bidi-paragraph-direction 'left-to-right)
+#+end_src
+** direnv
+#+begin_src emacs-lisp
+  (use-package direnv
+    :config
+    (direnv-mode))
 #+end_src
 * Terminals
 ** term-mode
@@ -2105,12 +2118,4 @@ TODO DONE [#A] [#B] [90%] [12/56]
 #+begin_src emacs-lisp
   (use-package uniline
     :ensure t)
-#+end_src
-
-* nix
-#+begin_src emacs-lisp
-(use-package nix-mode
-  :ensure t
-  :hook (nix-mode . lsp-deferred)
-  :mode "\\.nix\\'")
 #+end_src
