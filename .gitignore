@@ -4,3 +4,5 @@
 !/utilFiles/
 !/utilFiles/**
 !Readme.org
+!/modules/
+!/modules/**
