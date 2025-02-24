@@ -1,6 +1,6 @@
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 200)
-(defvar efs/default-variable-font-size 250)
+(defvar efs/default-font-size 130)
+(defvar efs/default-variable-font-size 150)
 
 (setq inhibit-startup-message t)
 
