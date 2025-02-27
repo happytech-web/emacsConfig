@@ -1,0 +1,45 @@
+;; (use-package eaf
+;;   :load-path "~/.emacs.d/site-lisp/emacs-application-framework"
+;;   :custom
+;;   ; See https://github.com/emacs-eaf/emacs-application-framework/wiki/Customization
+;;   (eaf-browser-continue-where-left-off t)
+;;   (eaf-browser-enable-adblocker t)
+;;   (browse-url-browser-function 'eaf-open-browser)
+;;   :config
+;;   (setq eaf-proxy-type "http")
+;;   (setq eaf-proxy-host "127.0.0.1")
+;;   (setq eaf-proxy-port "7897")
+;;   (defalias 'browse-web #'eaf-open-browser)
+;;   ;;(eaf-setup-leader-keys)
+;;   ;;(eaf-bind-key take_photo "p" eaf-camera-keybinding)
+;;   ;;(eaf-bind-key nil "M-q" eaf-browser-keybinding)
+
+;;   (require 'eaf-browser)
+;;   (require 'eaf-rss-reader)
+;;   (require 'eaf-image-viewer)
+;;   (require 'eaf-airshare)
+;;   (require 'eaf-netease-cloud-music)
+;;   (require 'eaf-demo)
+;;   (require 'eaf-file-sender)
+;;   (require 'eaf-js-video-player)
+;;   ;;(require 'eaf-pdf-viewer)
+;;   ;;(require 'eaf-git)
+;;   (require 'eaf-terminal)
+;;   ;;(require 'eaf-vue-demo)
+;;   (require 'eaf-file-manager)
+;;   ;;(require 'eaf-vue-tailwindcss)
+;;   (require 'eaf-system-monitor)
+;;   (require 'eaf-file-browser)
+;;   (require 'eaf-jupyter)
+;;   (require 'eaf-markdown-previewer)
+;;   (require 'eaf-camera)
+;;   (require 'eaf-markmap)
+;;   ;;(require 'eaf-pyqterminal)
+;;   (require 'eaf-video-player)
+;;   (require 'eaf-music-player)
+;;   (require 'eaf-map)
+;;   (require 'eaf-mindmap)
+;;   ;; key bindings and other
+;;   (require 'eaf-evil)
+;;   (require 'eaf-all-the-icons)
+;;   ) ;; unbind, see more in the Wiki
