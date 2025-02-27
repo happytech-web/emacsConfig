@@ -1,0 +1,42 @@
+(use-package pdf-tools
+  :defer t
+  :mode  ("\\.pdf\\'" . pdf-view-mode)
+  :config
+  (pdf-loader-install)
+  (setq-default pdf-view-display-size 'fit-height)
+  (setq pdf-view-continuous nil) ;; Makes it so scrolling down to the bottom/top of a page doesn't switch to the next page
+  ;(setq pdf-view-midnight-colors '("#ffffff" . "#121212" )) ;; I use midnight mode as dark mode, dark mode doesn't seem to work
+  :general
+  ;; Unbind SPC key in pdf-view-mode to avoid conflicts with general
+  (general-define-key :states 'motion :keymaps 'pdf-view-mode-map
+                      "C-j" 'pdf-view-next-page
+                      "C-k" 'pdf-view-previous-page
+
+                      "j" 'pdf-view-next-line-or-next-page
+                      "k" 'pdf-view-previous-line-or-previous-page
+
+                      ;; Arrows for movement as well
+                      (kbd "<down>") 'pdf-view-next-line-or-next-page
+                      (kbd "<up>") 'pdf-view-previous-line-or-previous-page
+
+                      (kbd "<down>") 'pdf-view-next-line-or-next-page
+                      (kbd "<up>") 'pdf-view-previous-line-or-previous-page
+
+                      (kbd "<left>") 'image-backward-hscroll
+                      (kbd "<right>") 'image-forward-hscroll
+
+                      "H" 'pdf-view-fit-height-to-window
+                      "W" 'pdf-view-fit-width-to-window
+                      "=" 'pdf-view-enlarge
+                      "-" 'pdf-view-shrink
+
+                      "q" 'quit-window
+                      "Q" 'kill-this-buffer
+                      "g" 'revert-buffer
+
+                      "C-s" 'isearch-forward
+                      )
+  )
+
+(provide 'init-pdf-tools)
+;;; init-pdf-tools.el ends here
