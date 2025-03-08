@@ -6,3 +6,4 @@
 !Readme.org
 !/modules/
 !/modules/**
+/modules/.env.el
