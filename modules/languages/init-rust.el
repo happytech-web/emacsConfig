@@ -3,7 +3,7 @@
 (use-package rust-mode
   :ensure t
   :hook
-  (rust-mode . lsp-deferred))
+  (rust-mode . lsp-bridge-mode))
 
 (provide 'init-rust)
 ;;; init-rust.el ends here

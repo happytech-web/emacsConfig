@@ -19,13 +19,15 @@
 (require 'init-helpful)
 (require 'init-general)
 (require 'init-evil)
+(require 'init-straight)
 
 ;; dev related
 ;; lsp mode: really heavy, need all of this
-(require 'init-lspmode)
-(require 'init-lsp-language)
-(require 'init-flycheck)
-(require 'init-company)
+;; (require 'init-lspmode)
+;; (require 'init-lsp-language)
+;; (require 'init-flycheck)
+;; (require 'init-company)
+(require 'init-lspbridge)
 
 ;; language/workenv setup
 (require 'init-cc)
@@ -70,6 +72,10 @@
 ;; tab bar
 (require 'init-tab-bar)
 
+;; ai
+(require 'init-gptel)
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -77,7 +83,7 @@
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
  '(package-selected-packages
-   '(rust-mode which-key vterm visual-fill-column uniline typescript-mode treemacs-projectile svg-tag-mode ros rainbow-delimiters pyvenv python-mode pdf-tools ox-hugo ox-gfm org-transclusion org-roam org-noter org-download org-bullets nix-mode magit lsp-ui lsp-pyright lsp-java lsp-ivy leetcode key-chord ivy-rich helpful go-translate general flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt doom-themes doom-modeline direnv dired-open dired-hide-dotfiles counsel company-box all-the-icons-dired)))
+   '(vue-mode rust-mode which-key vterm visual-fill-column uniline typescript-mode treemacs-projectile svg-tag-mode ros rainbow-delimiters pyvenv python-mode pdf-tools ox-hugo ox-gfm org-transclusion org-roam org-noter org-download org-bullets nix-mode magit lsp-ui lsp-pyright lsp-java lsp-ivy leetcode key-chord ivy-rich helpful go-translate general flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt doom-themes doom-modeline direnv dired-open dired-hide-dotfiles counsel company-box all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
