@@ -7,8 +7,10 @@
     :prefix "SPC"
     :global-prefix "C-SPC")
   (rune/leader-keys
-    "s"  '(:ignore t :which-key "scale-switch")
-    "st" '(counsel-load-theme :which-key "switch theme")))
+    "s" '(:ignore t :which-key "search")
+    "f" '(:ignore t :which-key "file")
+    "b" '(:ignore t :which-key "buffer")
+    ))
 
 (use-package hydra)
 

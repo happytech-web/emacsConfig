@@ -10,18 +10,35 @@
 (add-subdirs-to-load-path (expand-file-name "modules" user-emacs-directory))
 ;; (add-subdirs-to-load-path "~/.emacs.d/modules")
 
+;; startup time
+(defun efs/display-startup-time ()
+  (message
+   "Emacs loaded in %s with %d garbage collections."
+   (format
+    "%.2f seconds"
+    (float-time
+     (time-subtract after-init-time before-init-time)))
+   gcs-done))
+
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
 
 ;; basic functions
 (require 'init-basicUI)
-(require 'init-package)
-(require 'init-ivy)
+;; (require 'init-package)
+(require 'init-straight)
+(require 'init-utils)
+(require 'init-general)
+(require 'init-basic)
+;; (require 'init-ivy)
+(require 'init-vertico)
 (require 'init-advancedUI)
 (require 'init-helpful)
-(require 'init-general)
 (require 'init-evil)
-(require 'init-straight)
+(require 'init-updater)
 
 ;; dev related
+(require 'init-highlight)
 ;; lsp mode: really heavy, need all of this
 ;; (require 'init-lspmode)
 ;; (require 'init-lsp-language)
@@ -33,11 +50,14 @@
 (require 'init-cc)
 (require 'init-python)
 (require 'init-rust)
+(require 'init-just)
 
 ;; dap mode
-(require 'init-dapmode)
+;; (require 'init-dapmode)
+(require 'init-dape)
 
 ;; dev
+(require 'init-treesitter)
 (require 'init-prog-rice)
 (require 'init-magit)
 (require 'init-direnv)

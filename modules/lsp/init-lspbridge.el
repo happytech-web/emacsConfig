@@ -65,6 +65,13 @@
   (vue-mode . (lambda ()
                 (lsp-bridge-mode 1)
                 (run-with-idle-timer 0.1 nil #'lsp-bridge-mode 1))))
+
+(use-package cmake-mode
+  :hook
+  (vue-mode . (lambda ()
+                (lsp-bridge-mode 1)
+                (run-with-idle-timer 0.1 nil #'lsp-bridge-mode 1))))
+
 ;; (use-package vue-mode
 ;;   :hook
 ;;   (vue-mode . lsp-bridge-mode))

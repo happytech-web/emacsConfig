@@ -34,10 +34,14 @@
 
 (set-face-attribute 'default nil :font "Fira Code" :height efs/default-font-size)
 
+(set-fontset-font "fontset-default"
+             'han (font-spec :family "LXGW WenKai" :size 17))
+
 ;; Set the fixed pitch face
 (set-face-attribute 'fixed-pitch nil :font "Fira Code" :height efs/default-font-size)
 ;; Set the variable pitch face
 (set-face-attribute 'variable-pitch nil :font "LXGW WenKai" :height efs/default-variable-font-size :weight 'regular)
+
 (setq all-the-icons-dired-monochrome nil)  ;; 关闭单色图标模式,在文件系统中看起来更好
 
 ;; safe theme when no other themes
