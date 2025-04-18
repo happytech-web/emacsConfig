@@ -21,19 +21,21 @@
 (use-package key-chord
   :ensure t
   :config
-  (key-chord-mode 1))
+  ;; set delay
+  (setq key-chord-tow-keys-delay 0.5)
+  ;;  'jk' to normal mode
+  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+  (key-chord-mode 1)
+  )
 
-;; set delay
-(setq key-chord-tow-keys-delay 0.5)
 
-;;  'jk' to normal mode
-(key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
 ;; disable evil and use emacs keybindings in some mode
 (use-package evil-collection
   :after evil
   :config
   (evil-collection-init))
+
 
 (provide 'init-evil)
 ;;; init-evil.el ends here
