@@ -64,4 +64,41 @@
     gcmh-high-cons-threshold #x64000000)
   )
 
+
+;; [super-save] auto save my buffer
+(use-package super-save
+  :after evil
+  :straight t
+  :custom
+  (super-save-auto-save-when-idle t)
+  (super-save-exclude '("Deepseek"))
+  :preface
+  ;; HACK: i want to execute the command after an edit
+  ;; default super-save-triggers will save buffer before an cmd
+  ;; helper that runs the normal super‑save logic
+  (defun ll/super-save-after (&rest _)
+    "Save current buffer (like `super-save-command') *after* an edit."
+    (super-save-command))
+  :config
+  (dolist (hook '(evil-normal-state-entry-hook
+		  evil-normal-state-exit-hook))
+    (add-to-list 'super-save-hook-triggers hook))
+
+  (dolist (cmd '(ace-window))
+    (add-to-list 'super-save-triggers cmd))
+
+  (dolist (cmd '(indent-for-tab-command ; <tab> to indent
+		 evil-delete            ; dw, d$, visual D…
+                 evil-delete-line       ; dd
+                 evil-delete-char       ; x
+                 evil-change            ; c{motion}
+                 evil-change-line       ; cc
+                 evil-paste-after       ; p
+                 evil-paste-before      ; P
+		 evil-undo))            ; u
+    (advice-add cmd :after #'ll/super-save-after))
+
+  (super-save-mode +1)
+  )
+
 (provide 'init-basic)
