@@ -58,10 +58,10 @@
 
 ;; dev
 (require 'init-treesitter)
-(require 'init-prog-rice)
 (require 'init-magit)
 (require 'init-direnv)
 (require 'init-gc)
+(require 'init-vundo)
 
 ;; terminal
 (require 'init-term)
