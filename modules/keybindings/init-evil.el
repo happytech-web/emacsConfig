@@ -7,6 +7,7 @@
   (setq evil-want-C-i-jump nil)
   :config
   (evil-mode 1)
+  (evil-set-undo-system 'undo-redo)
   ; use C-g to go to normal mode
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
 
