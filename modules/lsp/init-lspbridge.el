@@ -56,8 +56,6 @@
   (lsp-bridge-nix-lsp-server 'nixd)
   (lsp-bridge-tex-lsp-server 'digestif)
   (lsp-bridge-tsdk-path "/home/happytech/.emacs.d/language-servers/ts/lib/node_modules/typescript/lib")
-  :config
-  (add-hook 'find-file-hook #'lsp-bridge-restart-process)
   )
 
 (use-package vue-mode
