@@ -72,6 +72,8 @@
   :custom
   (super-save-auto-save-when-idle t)
   (super-save-exclude '("Deepseek"))
+  (super-save-silent t)
+  (super-save-delete-trailing-whitespace 'except-current-line)
   :preface
   ;; HACK: i want to execute the command after an edit
   ;; default super-save-triggers will save buffer before an cmd
@@ -88,6 +90,7 @@
     (add-to-list 'super-save-triggers cmd))
 
   (dolist (cmd '(indent-for-tab-command ; <tab> to indent
+		 evil-join              ; J
 		 evil-delete            ; dw, d$, visual D…
                  evil-delete-line       ; dd
                  evil-delete-char       ; x
