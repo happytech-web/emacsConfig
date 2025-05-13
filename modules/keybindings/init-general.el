@@ -3,7 +3,8 @@
   :config
   ;; rune/leader-keys is a variable (user difined var)
   (general-create-definer rune/leader-keys
-    :keymaps '(normal insert visual emacs)
+    :states '(normal insert visual emacs)
+    :keymaps 'override
     :prefix "SPC"
     :global-prefix "C-SPC")
   (rune/leader-keys
