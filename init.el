@@ -22,7 +22,6 @@
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
 
-
 ;; basic functions
 (require 'init-basicUI)
 ;; (require 'init-package)
@@ -71,19 +70,23 @@
 
 ;; dired/file manager
 (require 'init-dired)
+(require 'init-dirvish)
 
 ;; window
 (require 'init-window)
 
 ;; org
 (require 'all-in-one)
+;; (require 'init-org)
 (require 'init-org-roam)
 (require 'init-org-export)
 (require 'init-org-download)
+;; (require 'init-svg-tag)
 
 ;; pdf
 (require 'init-pdf-tools)
-(require 'init-org-noter)
+;; (require 'init-org-noter)
+;; (require 'init-emacs-reader)
 
 ;; others/works
 (require 'init-go-translation)
@@ -95,6 +98,9 @@
 ;; ai
 (require 'init-gptel)
 
+
+;; rss
+(require 'init-rss)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

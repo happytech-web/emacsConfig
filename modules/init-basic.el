@@ -41,6 +41,39 @@
 (setq bidi-paragraph-direction 'left-to-right)
 (setq bidi-display-reordering 'left-to-right)
 
+;; 默认：所有模式都用空格缩进，宽度 2
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width        2)
+(setq-default standard-indent  2)
+
+;; 对于大多数编程模式，保持上面默认的 2 空格
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq-local indent-tabs-mode nil)
+            (setq-local tab-width        2)
+            (setq-local standard-indent  2)))
+
+;; Java 用 4 空格
+(add-hook 'java-mode-hook
+          (lambda ()
+            (setq-local indent-tabs-mode nil)
+            (setq-local tab-width        4)
+            (setq-local c-basic-offset   4)))  ;; c-family 缩进
+
+;; Python 用 4 空格
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq-local indent-tabs-mode    nil)
+            (setq-local tab-width           4)
+            (setq-local python-indent-offset 4)))
+
+;; Makefile 仍然用真实的 Tab（并且保持 Tab 宽度按 8 显示或你喜欢的值）
+(add-hook 'makefile-mode-hook
+          (lambda ()
+            (setq-local indent-tabs-mode t)
+            (setq-local tab-width      8)))  ;; Makefile 里 Tab 一般是 8 列
+
+
 ;; [so-long] Workaround for long one-line file
 (use-package so-long
   :hook ((after-init . global-so-long-mode)
@@ -77,11 +110,12 @@
   :preface
   ;; HACK: i want to execute the command after an edit
   ;; default super-save-triggers will save buffer before an cmd
-  ;; helper that runs the normal super‑save logic
+  ;; helper that runs the normal supersave logic
   (defun ll/super-save-after (&rest _)
     "Save current buffer (like `super-save-command') *after* an edit."
     (super-save-command))
   :config
+  (setq super-save-remote-files nil)
   (dolist (hook '(evil-normal-state-entry-hook
 		  evil-normal-state-exit-hook))
     (add-to-list 'super-save-hook-triggers hook))
@@ -103,5 +137,6 @@
 
   (super-save-mode +1)
   )
+
 
 (provide 'init-basic)

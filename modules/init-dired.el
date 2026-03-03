@@ -5,12 +5,14 @@
   :ensure nil
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
-  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  ;; :custom ((dired-listing-switches "-agho --group-directories-first"))
   :config
   (put 'dired-find-alternate-file 'disabled nil)
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" (lambda () (interactive) (find-alternate-file ".."))
     "l" 'dired-find-alternate-file)
+  (setq dired-listing-switches
+        "-l --almost-all --human-readable --group-directories-first --no-group")
   ;; (evil-collection-define-key 'normal 'dired-mode-map
   ;;   "h" (lambda()(interactive)(find-alternate-file ".."))
   ;;   "l" dired-find-alternate-file
@@ -19,8 +21,8 @@
   ;;   )
   )
 
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
+;; (use-package all-the-icons-dired
+;;   :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package dired-open
   :config
@@ -29,12 +31,15 @@
   (setq dired-open-extensions '(("png" . "feh")
                                 ("mkv" . "mpv"))))
 
-;; "H" to load dot files
+;; "." to load dot files
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
+    "." 'dired-hide-dotfiles-mode))
+
+;; (use-package dirvish
+;;   :straight t)
 
 (provide 'init-dired)
 ;;; init-dired.el ends here

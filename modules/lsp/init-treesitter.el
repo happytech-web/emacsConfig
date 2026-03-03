@@ -14,7 +14,9 @@
      python-mode-hook
      javascript-mode-hook
      typescript-mode-hook
-     rust-mode-hook)
+     rust-mode-hook
+     java-mode-hook
+     )
     #'tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
   )

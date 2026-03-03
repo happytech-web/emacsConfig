@@ -22,7 +22,7 @@
   ("f" nil "finished" :exit t))
 
 (rune/leader-keys
-  "ss" '(hydra-text-scale/body :which-key "scale text"))
+  "st" '(hydra-text-scale/body :which-key "scale text"))
 
 (provide 'init-general)
 ;;; init-general.el ends here

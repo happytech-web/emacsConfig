@@ -1,5 +1,5 @@
 (use-package svg-tag-mode
-  :ensure t
+  :straight t
   :hook org-mode
   :init
   (setq svg-lib-style-default
@@ -38,7 +38,7 @@
  ;; [30/40]
   (defun svg-progress-count (value)
     (save-match-data
-      (let* ((seq (split-string value "/"))           
+      (let* ((seq (split-string value "/"))
              (count (if (stringp (car seq))
                         (float (string-to-number (car seq)))
                       0))
@@ -60,22 +60,22 @@
 
           ;; red [+ans+]
           ("\\[\\+[A-Za-z0-9]+\\+\\]" . ( (lambda (tag)
-                                (svg-tag-make tag :face 'all-the-icons-red :inverse t 
+                                (svg-tag-make tag :face 'all-the-icons-red :inverse t
                                               :beg 2 :end -2 :margin 0 :height 0.6))))
 
           ;; yellow [*check*]
           ("\\[\\*[A-Za-z0-9]+\\*\\]" . ( (lambda (tag)
-                                (svg-tag-make tag :face 'all-the-icons-lyellow :inverse t 
+                                (svg-tag-make tag :face 'all-the-icons-lyellow :inverse t
                                               :beg 2 :end -2 :margin 0 :height 0.6))))
 
           ;; green [-ok-]
           ("\\[-[A-Za-z0-9]+-\\]" . ( (lambda (tag)
-                                (svg-tag-make tag :face 'all-the-icons-lgreen :inverse t 
+                                (svg-tag-make tag :face 'all-the-icons-lgreen :inverse t
                                               :beg 2 :end -2 :margin 0 :height 0.6))))
           ;;[#A]
           ;; Task priority
           ("\\[#[A-Z]\\]" . ( (lambda (tag)
-                                (svg-tag-make tag :face 'org-priority :inverse t 
+                                (svg-tag-make tag :face 'org-priority :inverse t
                                               :beg 2 :end -1 :margin 0 :height 0.6))))
 
           ;; TODO / DONE
@@ -93,7 +93,7 @@
           ;                           :height 0.5 :margin 0 :crop-right t))))
 
           ;("#\\+begin_src \\(.+\\)" . ((lambda (tag)
-          ;             (svg-tag-make tag :face 'all-the-icons-lcyan :inverse nil 
+          ;             (svg-tag-make tag :face 'all-the-icons-lcyan :inverse nil
           ;                           :height 0.5 :margin 0 :crop-left t))))
           ;("#\\+end_src" . ((lambda (tag)
           ;             (svg-tag-make (concat "➬" (substring tag 2)) :face 'all-the-icons-lcyan :inverse t
@@ -103,7 +103,7 @@
           ;(" =[^ ][^,]*[^ ]= " .((lambda (tag)
           ;                        (svg-tag-make tag :face 'info-node :inverse t
           ;                                      :height 0.5 :margin 0 :beg 1 :end -1))))
-          ;; Citation of the form [cite:@Knuth:1984] 
+          ;; Citation of the form [cite:@Knuth:1984]
           ("\\(\\[cite:@[A-Za-z]+:\\)" . ((lambda (tag)
                                             (svg-tag-make tag
                                                           :inverse t

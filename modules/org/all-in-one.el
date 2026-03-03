@@ -156,6 +156,17 @@
     (lambda () (interactive) (org-capture nil "jj")))
   )
 
+(defun my/org-preview-on-open ()
+  "进入 org buffer 后自动渲染全部公式（避免在大文件卡顿）。"
+  (when (and (derived-mode-p 'org-mode)
+             (< (buffer-size) 120000)) ;; 大文件避免卡顿
+    (run-with-idle-timer
+     0 nil (lambda () (when (eq major-mode 'org-mode)
+                        (org-latex-preview '(16))))))) ; '(16) 强制重建
+
+(add-hook 'org-mode-hook #'my/org-preview-on-open)  ;; 追加到末尾，确保晚于其它 UI hook
+
+
 (require 'org-tempo)
 
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
@@ -168,7 +179,10 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (python . t)))
+   (python . t)
+   (C . t)
+   )
+ )
 
 ;; don't ask me if i want to execute
 (setq org-confirm-babel-evaluate nil)
@@ -196,6 +210,14 @@
 
 (use-package visual-fill-column
   :hook (org-mode . efs/org-mode-visual-fill))
+
+(use-package org-fragtog
+  :straight t
+  :hook (org-mode . org-fragtog-mode)
+  :config
+  (setq org-latex-create-formula-image-program 'dvisvgm)
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 0.7))
+  )
 
 ;(use-package org-modern
 ;  :hook (org-mode . org-modern-mode))

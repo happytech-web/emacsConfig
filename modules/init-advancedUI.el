@@ -11,12 +11,13 @@
 
 ;;theme
 (use-package doom-themes
-  :init (load-theme 'doom-moonlight t)
+  ;; :init (load-theme 'doom-moonlight t)
   )
 
 (use-package ef-themes
   :ensure t
   ;; :init (load-theme 'ef-arbutus t)
+  :init (load-theme 'ef-bio t)
   )
 
 
@@ -47,6 +48,27 @@
   (nyan-wavy-trail       t)
   (nyan-animation-frames 10))
 
+;; [ligature] ligature support for Emacs
+(use-package ligature
+  :straight t
+  :hook ((prog-mode markdown-mode) . ligature-mode)
+  :config
+  ;; Enable all ligatures in programming modes
+  (ligature-set-ligatures '(prog-mode markdown-mode org-mode)
+                          '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                            ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                            "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                            "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                            "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                            "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                            "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                            "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                            ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                            "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                            "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                            "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                            "\\\\" "://"))
+  )
 
 (provide 'init-advancedUI)
 ;;; init-advancedUI.el ends here

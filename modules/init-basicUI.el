@@ -1,5 +1,37 @@
+;; font config ---------------------------------------------------
 (defvar efs/default-font-size 130)
 (defvar efs/default-variable-font-size 150)
+
+(defun ll/setup-fonts (&optional frame)
+  "Setup fonts. Works for daemon and new frames."
+  (with-selected-frame (or frame (selected-frame))
+    ;; English / default
+    (set-face-attribute 'default nil
+                        :font "Fira Code"
+                        :height efs/default-font-size)
+
+    ;; Fixed pitch (code, tables, etc.)
+    (set-face-attribute 'fixed-pitch nil
+                        :font "Fira Code"
+                        :height efs/default-font-size)
+
+    ;; Variable pitch (org prose)
+    (set-face-attribute 'variable-pitch nil
+                        :font "LXGW WenKai"
+                        :height efs/default-variable-font-size
+                        :weight 'regular)
+
+    ;; CJK fallback
+    (set-fontset-font t 'han (font-spec :family "LXGW WenKai"))
+
+    ;; (optional) emoji fallback
+    ;; (set-fontset-font t 'emoji (font-spec :family "Noto Color Emoji"))
+    ))
+
+(add-hook 'after-init-hook #'ll/setup-fonts)
+(add-hook 'after-make-frame-functions #'ll/setup-fonts)
+;; font config end ------------------------------------------------
+
 
 (setq inhibit-startup-message t)
 
@@ -17,6 +49,9 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 
+;; disable blinking
+(blink-cursor-mode -1)
+
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
               term-mode-hook
@@ -24,23 +59,13 @@
               vterm-mode-hook
               treemacs-mode-hook
               eshell-mode-hook
-              pdf-view-mode-hook))
+              pdf-view-mode-hook
+              reader-mode-hook
+              ))
 (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; parenthesis completion
 (electric-pair-mode 1)
-
-;; Font Configuration ------------------------------------------------------
-
-(set-face-attribute 'default nil :font "Fira Code" :height efs/default-font-size)
-
-(set-fontset-font "fontset-default"
-             'han (font-spec :family "LXGW WenKai" :size 17))
-
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Fira Code" :height efs/default-font-size)
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "LXGW WenKai" :height efs/default-variable-font-size :weight 'regular)
 
 (setq all-the-icons-dired-monochrome nil)  ;; 关闭单色图标模式,在文件系统中看起来更好
 
