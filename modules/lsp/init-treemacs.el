@@ -1,6 +1,6 @@
 ;;; i think i have never use treemacs before
 (use-package treemacs
-  :ensure t
+  :straight t
   :defer t
   :config
   (treemacs-tag-follow-mode)
@@ -16,11 +16,11 @@
         ("/" . treemacs-advanced-helpful-hydra)))
 
 (use-package treemacs-projectile
-  :ensure t
+  :straight t
   :after (treemacs projectile))
 
 (use-package lsp-treemacs
-  :ensure t
+  :straight t
   :after (treemacs lsp))
 
 (provide 'init-treemacs)

@@ -1,5 +1,5 @@
 (use-package org-roam
-  :ensure t
+  :straight t
   :custom
   (org-roam-directory "~/RoamNotes")
   (org-roam-completion-everywhere t)

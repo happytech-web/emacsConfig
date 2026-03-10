@@ -1,5 +1,5 @@
 (use-package leetcode
-  :ensure t
+  :straight t
   :config
   (setq leetcode-save-solutions t)
   (setq leetcode-directory "~/codes/leetcode")

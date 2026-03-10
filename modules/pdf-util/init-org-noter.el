@@ -1,5 +1,5 @@
 (use-package org-noter
-  :ensure t
+  :straight t
   :config
   (org-noter-enable-org-roam-integration)
   (setq org-noter-always-create-frame nil)

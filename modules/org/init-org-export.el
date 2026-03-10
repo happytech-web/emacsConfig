@@ -13,9 +13,9 @@
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (use-package ox-hugo
-  :ensure t)
+  :straight t)
 (use-package ox-gfm
-  :ensure t
+  :straight t
   :after org)
 
 (provide 'init-org-export)

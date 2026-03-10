@@ -15,7 +15,7 @@
   )
 
 (use-package ef-themes
-  :ensure t
+  :straight t
   ;; :init (load-theme 'ef-arbutus t)
   :init (load-theme 'ef-bio t)
   )

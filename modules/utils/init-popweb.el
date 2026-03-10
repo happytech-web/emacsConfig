@@ -1,6 +1,6 @@
 ;; (defvar path-to-popweb "~/.emacs.d/pluginTools/popweb")
 ;; (use-package org-transclusion
-;;   :ensure t)
+;;   :straight t)
 ;; (use-package popweb
 ;;   :load-path path-to-popweb
 ;;   :config

@@ -6,7 +6,7 @@
 
 (use-package tree-sitter
   :straight t
-  :ensure t
+  :straight t
   :init
   (add-hook!
     (c-mode-hook

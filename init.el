@@ -107,9 +107,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-show-quick-access t nil nil "Customized with use-package company")
- '(package-selected-packages
-   '(vue-mode rust-mode which-key vterm visual-fill-column uniline typescript-mode treemacs-projectile svg-tag-mode ros rainbow-delimiters pyvenv python-mode pdf-tools ox-hugo ox-gfm org-transclusion org-roam org-noter org-download org-bullets nix-mode magit lsp-ui lsp-pyright lsp-java lsp-ivy leetcode key-chord ivy-rich helpful go-translate general flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt doom-themes doom-modeline direnv dired-open dired-hide-dotfiles counsel company-box all-the-icons-dired)))
+ '(company-show-quick-access t nil nil "Customized with use-package company"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

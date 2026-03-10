@@ -5,6 +5,7 @@
   )
 ;;; [recentf] recently visited files
 (use-package recentf
+  :straight nil
   :after general
   :general
   (rune/leader-keys
@@ -76,6 +77,7 @@
 
 ;; [so-long] Workaround for long one-line file
 (use-package so-long
+  :straight nil
   :hook ((after-init . global-so-long-mode)
 	 ((so-long-mode prog-mode fundamental-mode) . +so-long-settings))
   :config

@@ -1,5 +1,5 @@
 (use-package org-download
-  :ensure t
+  :straight t
   :config
   (add-hook 'dired-mode-hook #'org-download-enable)
   (setq org-download-method 'attach))  ; 使用 org-attach 机制

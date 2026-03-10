@@ -11,6 +11,7 @@
                     :foreground "#62d2a2")
 
 (use-package tab-bar
+  :straight nil
   :hook (window-setup . tab-bar-mode)
   :init
   (setq tab-bar-emoji "💻 ")

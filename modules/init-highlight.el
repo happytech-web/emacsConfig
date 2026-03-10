@@ -3,6 +3,7 @@
 
 ;; [hl-line] Highlight current line
 (use-package hl-line
+  :straight nil
   :hook (after-init . global-hl-line-mode)
   :config
   (setq hl-line-sticky-flag nil)
@@ -14,6 +15,7 @@
 
 ;; [show-paren-mode] Highlight matching parens
 (use-package paren
+  :straight nil
   :custom-face (show-paren-match ((t (:foreground "SpringGreen3" :underline t :weight bold))))
   :config
   (setq show-paren-when-point-inside-paren t
@@ -26,6 +28,7 @@
 
 ;; [whitespace] Show visualize TAB, (HARD) SPC, newline
 (use-package whitespace
+  :straight nil
   :hook ((prog-mode conf-mode yaml-mode) . whitespace-mode)
   :init
   :config
@@ -35,6 +38,7 @@
 
 ;; [display-fill-column-indicator] Show a line at 80 char
 (use-package display-fill-column-indicator
+  :straight nil
   :hook (prog-mode . display-fill-column-indicator-mode))
 
 
@@ -103,6 +107,7 @@
 
 ;; [beacon] Highlight line at cursor after switching window
 (use-package pulse
+  :straight nil
   :custom-face
   (pulse-highlight-start-face ((t (:inherit region :background unspecified))))
   (pulse-highlight-face ((t (:inherit region :background unspecified :extend t))))
@@ -152,4 +157,3 @@
   )
 
 (provide 'init-highlight)
-

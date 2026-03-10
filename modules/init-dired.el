@@ -2,6 +2,7 @@
 ;; (require 'dired-single)
 
 (use-package dired
+  :straight nil
   :ensure nil
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))

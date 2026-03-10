@@ -1,5 +1,5 @@
 (use-package go-translate
-  :ensure t
+  :straight (go-translate :type git :host github :repo "lorniu/go-translate")
   :general
   (rune/leader-keys
     "l" '(:ignore t :which-key "language")

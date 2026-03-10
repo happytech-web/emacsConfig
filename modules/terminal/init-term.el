@@ -1,4 +1,5 @@
 (use-package term
+  :straight nil
   :config
   (setq explicit-shell-file-name "bash") ;; Change this to zsh, etc
   ;;(setq explicit-zsh-args '())         ;; Use 'explicit-<shell>-args for shell-specific args

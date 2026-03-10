@@ -1,4 +1,5 @@
 (use-package cc-mode
+  :straight nil
   :ensure nil
   :functions 			; suppress warnings
   c-toggle-hungry-state
@@ -48,7 +49,7 @@
   (setq typescript-indent-level 2))
 
 (use-package python-mode
-  :ensure t
+  :straight t
   :hook (python-mode . lsp-deferred)
   :custom
   ;; NOTE: Set these if Python 3 is called "python3" on your system!
@@ -59,7 +60,7 @@
   (require 'dap-python))
 
 (use-package lsp-pyright
-  :ensure t
+  :straight t
   :hook
   (python-mode . (lambda ()
                   (require 'lsp-pyright)
@@ -74,10 +75,9 @@
 
 
 (use-package nix-mode
-  :ensure t
+  :straight t
   :hook (nix-mode . lsp-deferred)
   :mode "\\.nix\\'")
 
 (provide 'init-lsp-language)
 ;;; init-lsp-language.el ends here
-

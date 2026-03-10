@@ -1,7 +1,7 @@
 (use-package rust-mode)
 
 (use-package rust-mode
-  :ensure t
+  :straight t
   :hook
   (rust-mode . lsp-bridge-mode))
 

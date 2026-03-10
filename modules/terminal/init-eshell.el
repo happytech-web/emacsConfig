@@ -18,6 +18,7 @@
 (use-package eshell-git-prompt)
 
 (use-package eshell
+  :straight nil
   :hook (eshell-first-time-mode . efs/configure-eshell)
   :config
 

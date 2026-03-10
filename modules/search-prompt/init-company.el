@@ -1,5 +1,5 @@
 ;;   (use-package company
-;;     :ensure t
+;;     :straight t
 ;;     :after lsp-mode
 ;;     :hook (lsp-mode . company-mode)
 ;;     :bind (:map company-active-map
@@ -48,7 +48,7 @@
    (company-idle-delay 0.0))
 
 (use-package company-box
-    :ensure t
+    :straight t
     :if window-system
     :hook (company-mode . company-box-mode))
 

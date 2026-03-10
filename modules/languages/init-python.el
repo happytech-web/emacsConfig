@@ -1,5 +1,5 @@
 (use-package pyvenv
-  :ensure t
+  :straight t
   :config
   ; (setenv "WORKON_HOME" (expand-file-name "~/anaconda3/envs"))
   (pyvenv-mode t))

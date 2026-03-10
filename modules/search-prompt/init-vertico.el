@@ -1,5 +1,5 @@
 (use-package vertico
-  :ensure t
+  :straight t
   :general
   :bind (:map vertico-map
 	      ("C-j" . vertico-next)
@@ -12,6 +12,7 @@
 
 
 (use-package vertico-directory
+  :straight nil
   :after vertico
   :bind (:map vertico-map
               ("RET" . vertico-directory-enter)
@@ -31,7 +32,7 @@
 
 (use-package marginalia
   :after vertico
-  :ensure t
+  :straight t
   :custom
   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :init
@@ -131,6 +132,7 @@
 
 
 (use-package savehist
+  :straight nil
   :init
   (savehist-mode))
 

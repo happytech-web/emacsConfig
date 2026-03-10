@@ -20,7 +20,7 @@
 
 ;; key-chord: allow press two key quickly to get a command
 (use-package key-chord
-  :ensure t
+  :straight t
   :config
   ;; set delay
   (setq key-chord-tow-keys-delay 0.5)

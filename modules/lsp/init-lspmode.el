@@ -5,7 +5,7 @@
 
 ;; lsp mode
 (use-package lsp-mode
-  :ensure t
+  :straight t
   :commands (lsp lsp-deferred)
   :hook (lsp-mode . efs/lsp-mode-setup)
   :init
