@@ -1,116 +1,111 @@
-;;; setting load path
-(defun add-subdirs-to-load-path (dir)
-  "递归地将DIR及其所有子目录添加到`load-path`。
-   writen by gpt-4o
-   这里设置了default-dir, 但是不会影响别的函数，因为这里只是一个let"
-  (let ((default-directory (file-name-as-directory dir)))
-    (add-to-list 'load-path dir)
-    (normal-top-level-add-subdirs-to-load-path)))
+;;; init.el --- Minimal Emacs config -*- lexical-binding: t; -*-
 
-(add-subdirs-to-load-path (expand-file-name "modules" user-emacs-directory))
-;; (add-subdirs-to-load-path "~/.emacs.d/modules")
+;; Keep runtime data in ~/.emacs.d/.emacs-data/
+(defconst my/emacs-data-dir (expand-file-name ".emacs-data/" user-emacs-directory))
+(defconst my/cache-dir (expand-file-name "cache/" my/emacs-data-dir))
 
-;; startup time
-(defun efs/display-startup-time ()
-  (message
-   "Emacs loaded in %s with %d garbage collections."
-   (format
-    "%.2f seconds"
-    (float-time
-     (time-subtract after-init-time before-init-time)))
-   gcs-done))
+(dolist (dir (list my/emacs-data-dir
+                   my/cache-dir
+                   (expand-file-name "backup/" my/cache-dir)
+                   (expand-file-name "auto-save/" my/cache-dir)
+                   (expand-file-name "auto-save/sessions/" my/cache-dir)
+                   (expand-file-name "url/" my/cache-dir)
+                   (expand-file-name "transient/" my/cache-dir)
+                   (expand-file-name "straight/" my/emacs-data-dir)
+                   (expand-file-name "eln-cache/" my/emacs-data-dir)))
+  (make-directory dir t))
 
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+;; Store generated state and caches outside top-level config files.
+(setq custom-file (expand-file-name "custom.el" my/emacs-data-dir)
+      backup-directory-alist `(("." . ,(expand-file-name "backup/" my/cache-dir)))
+      auto-save-file-name-transforms `((".*" ,(expand-file-name "auto-save/" my/cache-dir) t))
+      auto-save-list-file-prefix (expand-file-name "auto-save/sessions/" my/cache-dir)
+      tramp-persistency-file-name (expand-file-name "tramp" my/cache-dir)
+      url-history-file (expand-file-name "url/history" my/cache-dir)
+      savehist-file (expand-file-name "savehist" my/cache-dir)
+      recentf-save-file (expand-file-name "recentf" my/cache-dir)
+      bookmark-default-file (expand-file-name "bookmarks" my/cache-dir)
+      project-list-file (expand-file-name "projects" my/cache-dir)
+      transient-history-file (expand-file-name "transient/history.el" my/cache-dir)
+      transient-levels-file (expand-file-name "transient/levels.el" my/cache-dir)
+      transient-values-file (expand-file-name "transient/values.el" my/cache-dir)
+      package-user-dir (expand-file-name "elpa" my/emacs-data-dir)
+      native-comp-eln-load-path (list (expand-file-name "eln-cache/" my/emacs-data-dir)))
 
-;; basic functions
+(when (file-exists-p custom-file)
+  (load custom-file nil 'nomessage))
+
+;; Load local modules from ~/.emacs.d/modules/
+(add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
+
+;; Basic UX defaults.
+(setq inhibit-startup-screen t
+      initial-scratch-message nil
+      ring-bell-function 'ignore
+      use-short-answers t)
+
+;; Bootstrap straight.el into ~/.emacs.d/.emacs-data/straight/
+(defvar bootstrap-version)
+(defvar my/straight-ready nil)
+(setq straight-base-dir (expand-file-name "straight/" my/emacs-data-dir))
+(let ((legacy-straight-dir (expand-file-name "straight/" user-emacs-directory)))
+  (when (and (file-exists-p (expand-file-name "repos/straight.el/bootstrap.el"
+                                              legacy-straight-dir))
+             (not (file-exists-p (expand-file-name "repos/straight.el/bootstrap.el"
+                                                   straight-base-dir))))
+    (copy-directory legacy-straight-dir straight-base-dir t t t)))
+(let* ((bootstrap-file (expand-file-name "repos/straight.el/bootstrap.el" straight-base-dir))
+       (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (let ((buf (ignore-errors
+                 (url-retrieve-synchronously
+                  "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+                  'silent 'inhibit-cookies))))
+      (if (buffer-live-p buf)
+          (with-current-buffer buf
+            (goto-char (point-max))
+            (eval-print-last-sexp)
+            (kill-buffer buf))
+        (message "straight.el install skipped: cannot download installer now."))))
+  (when (file-exists-p bootstrap-file)
+    (load bootstrap-file nil 'nomessage)
+    (setq my/straight-ready t)))
+
+(when my/straight-ready
+  (setq straight-use-package-by-default t
+        straight-check-for-modifications '(check-on-save find-when-checking)
+        straight-vc-git-default-clone-depth 1)
+  (straight-use-package 'use-package)
+  (require 'use-package))
+
+;; Small built-in packages as examples.
+(if my/straight-ready
+    (use-package emacs
+      :ensure nil
+      :config
+      (savehist-mode 1)
+      (recentf-mode 1)
+      (global-auto-revert-mode 1))
+  (savehist-mode 1)
+  (recentf-mode 1)
+  (global-auto-revert-mode 1))
+
+;; UI modules from your existing config.
 (require 'init-basicUI)
-;; (require 'init-package)
-(require 'init-straight)
-(require 'init-utils)
-(require 'init-general)
-(require 'init-basic)
-;; (require 'init-ivy)
-(require 'init-vertico)
-(require 'init-advancedUI)
-(require 'init-helpful)
-(require 'init-evil)
-(require 'init-updater)
+(when my/straight-ready
+  (require 'init-advancedUI))
 
-;; dev related
-(require 'init-highlight)
-;; lsp mode: really heavy, need all of this
-;; (require 'init-lspmode)
-;; (require 'init-lsp-language)
-;; (require 'init-flycheck)
-;; (require 'init-company)
-(require 'init-lspbridge)
+;; Restore startup-tuned values after init.
+(add-hook
+ 'emacs-startup-hook
+ (lambda ()
+   (setq gc-cons-threshold (* 64 1024 1024)
+         gc-cons-percentage 0.1
+         file-name-handler-alist
+         (delete-dups (append file-name-handler-alist
+                              my/default-file-name-handler-alist)))
+   (message "Emacs ready in %.2fs, %d GCs"
+            (float-time (time-subtract after-init-time before-init-time))
+            gcs-done)))
 
-;; language/workenv setup
-(require 'init-cc)
-(require 'init-python)
-(require 'init-rust)
-(require 'init-just)
-
-;; dap mode
-;; (require 'init-dapmode)
-(require 'init-dape)
-
-;; dev
-(require 'init-treesitter)
-(require 'init-magit)
-(require 'init-direnv)
-(require 'init-gc)
-(require 'init-vundo)
-
-;; terminal
-(require 'init-term)
-(require 'init-vterm)
-(require 'init-eshell)
-
-
-;; dired/file manager
-(require 'init-dired)
-(require 'init-dirvish)
-
-;; window
-(require 'init-window)
-
-;; org
-(require 'all-in-one)
-;; (require 'init-org)
-(require 'init-org-roam)
-(require 'init-org-export)
-(require 'init-org-download)
-;; (require 'init-svg-tag)
-
-;; pdf
-(require 'init-pdf-tools)
-;; (require 'init-org-noter)
-;; (require 'init-emacs-reader)
-
-;; others/works
-(require 'init-go-translation)
-(require 'init-leetcode)
-
-;; tab bar
-(require 'init-tab-bar)
-
-;; ai
-(require 'init-gptel)
-
-
-;; rss
-(require 'init-rss)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-show-quick-access t nil nil "Customized with use-package company"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;; init.el ends here
