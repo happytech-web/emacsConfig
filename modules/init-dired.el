@@ -9,9 +9,8 @@
   ;; :custom ((dired-listing-switches "-agho --group-directories-first"))
   :config
   (put 'dired-find-alternate-file 'disabled nil)
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" (lambda () (interactive) (find-alternate-file ".."))
-    "l" 'dired-find-alternate-file)
+  (keymap-set dired-mode-map "h" (lambda () (interactive) (find-alternate-file "..")))
+  (keymap-set dired-mode-map "l" #'dired-find-alternate-file)
   (setq dired-listing-switches
         "-l --almost-all --human-readable --group-directories-first --no-group")
   ;; (evil-collection-define-key 'normal 'dired-mode-map
@@ -36,8 +35,7 @@
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "." 'dired-hide-dotfiles-mode))
+  (keymap-set dired-mode-map "." #'dired-hide-dotfiles-mode))
 
 ;; (use-package dirvish
 ;;   :straight t)

@@ -37,12 +37,56 @@
 
 ;; Load local modules from ~/.emacs.d/modules/
 (add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/search-prompt/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/dev/" user-emacs-directory))
 
 ;; Basic UX defaults.
 (setq inhibit-startup-screen t
       initial-scratch-message nil
       ring-bell-function 'ignore
       use-short-answers t)
+
+;; Clipboard integration: make kill/yank work with system clipboard.
+(setq select-enable-clipboard t
+      select-enable-primary t
+      save-interprogram-paste-before-kill t
+      yank-pop-change-selection t
+      kill-do-not-save-duplicates t)
+
+;; Use wl-copy/wl-paste when available (works for both GUI and TTY on Wayland).
+;; Fall back to Emacs native backend if wl-clipboard is unavailable.
+(when (and (eq system-type 'gnu/linux)
+           (executable-find "wl-copy")
+           (executable-find "wl-paste"))
+  (defun my/ensure-wayland-env ()
+    "Populate WAYLAND_DISPLAY/XDG_RUNTIME_DIR when Emacs is missing them."
+    (let* ((uid (number-to-string (user-uid)))
+           (runtime (or (getenv "XDG_RUNTIME_DIR")
+                        (expand-file-name (concat "/run/user/" uid)))))
+      (when (and runtime (file-directory-p runtime))
+        (unless (getenv "XDG_RUNTIME_DIR")
+          (setenv "XDG_RUNTIME_DIR" runtime))
+        (unless (getenv "WAYLAND_DISPLAY")
+          (let ((socket (car (directory-files runtime nil "^wayland-[0-9]+$"))))
+            (when socket
+              (setenv "WAYLAND_DISPLAY" socket)))))))
+  (defun my/wl-copy (text)
+    "Copy TEXT to system clipboard through wl-copy."
+    (my/ensure-wayland-env)
+    (ignore-errors
+      (with-temp-buffer
+        (insert text)
+        (call-process-region (point-min) (point-max)
+                             "wl-copy" nil nil nil "-n"))))
+  (defun my/wl-paste ()
+    "Paste text from system clipboard through wl-paste."
+    (my/ensure-wayland-env)
+    (ignore-errors
+      (with-temp-buffer
+        (when (eq 0 (call-process "wl-paste" nil t nil "-n"))
+          (buffer-string)))))
+  (setq interprogram-cut-function #'my/wl-copy
+        interprogram-paste-function #'my/wl-paste))
 
 ;; Bootstrap straight.el into ~/.emacs.d/.emacs-data/straight/
 (defvar bootstrap-version)
@@ -92,8 +136,19 @@
 
 ;; UI modules from your existing config.
 (require 'init-basicUI)
+
 (when my/straight-ready
-  (require 'init-advancedUI))
+  (require 'init-vertico)
+  (require 'init-corfu)
+  (require 'init-dired)
+  (require 'init-dirvish)
+  (require 'init-treesitter)
+  (require 'init-direnv)
+  (require 'init-eglot)
+  (require 'init-meow)
+  (require 'init-advancedUI)
+  (require 'init-magit)
+  )
 
 ;; Restore startup-tuned values after init.
 (add-hook
