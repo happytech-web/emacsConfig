@@ -11,10 +11,10 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
 `fixed-pitch' (Fira Code from init-basicUI)."
   (with-eval-after-load 'org
     ;; Headings and title: variable pitch for better reading.
-    (my/org-ui-set-face-if-exists 'org-document-title :inherit 'variable-pitch :weight 'bold :height 1.25)
+    (my/org-ui-set-face-if-exists 'org-document-title :inherit 'variable-pitch :family "Merienda" :weight 'bold :height 1.25)
     (dolist (face '(org-level-1 org-level-2 org-level-3 org-level-4
                     org-level-5 org-level-6 org-level-7 org-level-8))
-      (my/org-ui-set-face-if-exists face :inherit 'variable-pitch :weight 'semi-bold))
+      (my/org-ui-set-face-if-exists face :inherit 'variable-pitch :family "Merienda" :weight 'semi-bold))
 
     ;; Fixed-pitch regions in org.
     (dolist (face '(org-block
@@ -35,6 +35,7 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
                     line-number
                     line-number-current-line))
       (my/org-ui-set-face-if-exists face :inherit 'fixed-pitch))
+    (my/org-ui-set-face-if-exists 'org-quote :inherit 'default :family "Kalam")
     ;; Keep visual indentation glyphs width-stable.
     (my/org-ui-set-face-if-exists 'org-indent :inherit '(org-hide fixed-pitch))
 
@@ -48,6 +49,7 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
 (defun my/org-ui-mode-setup ()
   "Enable org UI defaults for writing."
   (variable-pitch-mode 1)
+  (face-remap-add-relative 'variable-pitch :family "Spectral")
   (setq-local line-spacing 0.2))
 
 (defun my/org-center-document ()
@@ -61,6 +63,7 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
   :ensure nil
   :custom
   (org-hide-leading-stars nil)
+  (org-fontify-quote-and-verse-blocks t)
   (org-startup-indented t)
   :hook ((org-mode . my/org-ui-mode-setup)
          (org-mode . org-indent-mode))
