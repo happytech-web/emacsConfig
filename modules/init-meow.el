@@ -4,7 +4,10 @@
   :straight t
   :init
   (defun my/meow-setup ()
-  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty
+        meow-use-cursor-position-hack t
+        ;; Keep `d` -> `meow-delete` stable even if C-d is rebound for scrolling.
+        meow--kbd-delete-char 'delete-char)
   (meow-motion-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
@@ -93,6 +96,7 @@
   (my/meow-setup)
   ;; Per-mode state overrides.
   ;; Help/Message buffers are more convenient in normal state.
+  (setf (alist-get 'org-mode meow-mode-state-list) 'normal)
   (setf (alist-get 'help-mode meow-mode-state-list) 'normal)
   (setf (alist-get 'helpful-mode meow-mode-state-list) 'normal)
   (setf (alist-get 'messages-buffer-mode meow-mode-state-list) 'normal)

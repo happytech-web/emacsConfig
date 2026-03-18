@@ -35,6 +35,8 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
                     line-number
                     line-number-current-line))
       (my/org-ui-set-face-if-exists face :inherit 'fixed-pitch))
+    ;; Keep visual indentation glyphs width-stable.
+    (my/org-ui-set-face-if-exists 'org-indent :inherit '(org-hide fixed-pitch))
 
     (my/org-ui-set-face-if-exists 'org-ellipsis :inherit '(fixed-pitch default)))
 
@@ -48,39 +50,24 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
   (variable-pitch-mode 1)
   (setq-local line-spacing 0.2))
 
+(defun my/org-center-document ()
+  "Center org document with a readable text width."
+  (setq-local visual-fill-column-width 110
+              visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+
 (use-package org
   :straight nil
   :ensure nil
   :custom
   (org-hide-leading-stars nil)
-  :hook (org-mode . my/org-ui-mode-setup)
+  (org-startup-indented t)
+  :hook ((org-mode . my/org-ui-mode-setup)
+         (org-mode . org-indent-mode))
   :config
   (my/org-ui-apply-font-faces)
   ;; Themes may reset org faces; re-apply after theme changes.
   (advice-add 'load-theme :after (lambda (&rest _) (my/org-ui-apply-font-faces))))
-
-(use-package org-modern
-  :straight t
-  :after org
-  :hook (org-mode . org-modern-mode)
-  :custom
-  (org-hide-emphasis-markers t)
-  (org-catch-invisible-edits 'show-and-error)
-  (org-pretty-entities t)
-  (org-modern-checkbox nil)
-  (org-modern-todo nil)
-  (org-modern-priority nil)
-  (org-modern-tag nil)
-  (org-modern-star nil)
-  (org-modern-list nil)
-  ;; Heading stars
-  ;; (org-modern-star 'replace)
-  ;; (org-modern-list '((?* . "•")
-                     ;; (?+ . "‣")
-                     ;; (?- . "–")))
-  (org-modern-timestamp nil)
-  (org-modern-horizontal-rule nil)
-  (org-modern-table-vertical 1))
 
 (use-package org-superstar
   :straight t
@@ -96,6 +83,10 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
   (org-appear-autosubmarkers t)
   (org-appear-autokeywords t)
   :hook (org-mode . org-appear-mode))
+
+(use-package visual-fill-column
+  :straight t
+  :hook (org-mode . my/org-center-document))
 
 (provide 'init-org-ui)
 ;;; init-org-ui.el ends here
