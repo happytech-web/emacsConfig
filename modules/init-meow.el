@@ -8,6 +8,8 @@
   (meow-motion-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
+   '("C-d" . meow-page-down)
+   '("C-u" . meow-page-up)
    '("<escape>" . ignore))
   (meow-leader-define-key
    ;; Use SPC (0-9) for digit arguments.
@@ -62,6 +64,8 @@
    '("K" . meow-prev-expand)
    '("l" . meow-right)
    '("L" . meow-right-expand)
+   '("C-u" . meow-page-up)
+   '("C-d" . meow-page-down)
    '("m" . meow-join)
    '("n" . meow-search)
    '("o" . meow-block)
@@ -87,6 +91,11 @@
    '("<escape>" . ignore)))
   :config
   (my/meow-setup)
+  ;; Per-mode state overrides.
+  ;; Help/Message buffers are more convenient in normal state.
+  (setf (alist-get 'help-mode meow-mode-state-list) 'normal)
+  (setf (alist-get 'helpful-mode meow-mode-state-list) 'normal)
+  (setf (alist-get 'messages-buffer-mode meow-mode-state-list) 'normal)
   (meow-global-mode 1))
 
 (provide 'init-meow)

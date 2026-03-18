@@ -61,6 +61,11 @@
 	 ("C-c s r" . consult-ripgrep)
 	 ))
 
+(use-package consult-eglot
+  :straight t
+  :after (consult eglot)
+  :bind (("C-c l S" . consult-eglot-symbols)))
+
 (use-package savehist
   :straight nil
   :init

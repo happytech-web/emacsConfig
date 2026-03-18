@@ -39,6 +39,7 @@
 (add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "modules/search-prompt/" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "modules/dev/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/org/" user-emacs-directory))
 
 ;; Basic UX defaults.
 (setq inhibit-startup-screen t
@@ -139,7 +140,13 @@
 
 (when my/straight-ready
   (require 'init-vertico)
+  (require 'init-consult-treesit-imenu)
   (require 'init-corfu)
+  (require 'init-emacs-dev)
+  (require 'init-org-core)
+  (require 'init-org-ui)
+  (require 'init-markdown)
+  (require 'init-svg-tag)
   (require 'init-dired)
   (require 'init-dirvish)
   (require 'init-treesitter)
