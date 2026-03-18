@@ -36,7 +36,12 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
                     line-number-current-line))
       (my/org-ui-set-face-if-exists face :inherit 'fixed-pitch))
 
-    (my/org-ui-set-face-if-exists 'org-ellipsis :inherit '(fixed-pitch default))))
+    (my/org-ui-set-face-if-exists 'org-ellipsis :inherit '(fixed-pitch default)))
+
+  ;; Heading bullets from org-superstar use Fira Code while heading text stays LXGW.
+  (with-eval-after-load 'org-superstar
+    (my/org-ui-set-face-if-exists 'org-superstar-header-bullet :inherit 'fixed-pitch)
+    (my/org-ui-set-face-if-exists 'org-superstar-item :inherit 'fixed-pitch)))
 
 (defun my/org-ui-mode-setup ()
   "Enable org UI defaults for writing."
@@ -66,14 +71,20 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
   (org-modern-todo nil)
   (org-modern-priority nil)
   (org-modern-tag nil)
+  (org-modern-star nil)
+  (org-modern-list nil)
   ;; Heading stars
-  (org-modern-star 'replace)
-  (org-modern-list '((?* . "•")
-                     (?+ . "‣")
-                     (?- . "–")))
+  ;; (org-modern-star 'replace)
+  ;; (org-modern-list '((?* . "•")
+                     ;; (?+ . "‣")
+                     ;; (?- . "–")))
   (org-modern-timestamp nil)
   (org-modern-horizontal-rule nil)
   (org-modern-table-vertical 1))
+
+(use-package org-superstar
+  :straight t
+  :hook (org-mode . org-superstar-mode))
 
 (use-package org-appear
   :straight t
