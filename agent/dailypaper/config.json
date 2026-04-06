@@ -1,0 +1,176 @@
+{
+  "paths": {
+    "roam_root": "~/RoamNotes",
+    "daily_dir": "daily",
+    "papers_dir": "papers",
+    "areas_dir": "areas",
+    "projects_dir": "projects",
+    "methods_dir": "methods",
+    "selector_profile": "projects/dailypaper-selector-profile.org",
+    "paper_index": "paper-index.org",
+    "research_dashboard": "research-dashboard.org"
+  },
+  "research_areas": [
+    {
+      "slug": "robot-learning",
+      "name": "Robot Learning",
+      "keywords": [
+        "robot learning",
+        "manipulation",
+        "visuomotor",
+        "embodied",
+        "policy",
+        "world model",
+        "diffusion policy",
+        "vla",
+        "bimanual"
+      ]
+    },
+    {
+      "slug": "vision-language-action",
+      "name": "Vision-Language-Action",
+      "keywords": [
+        "vision-language-action",
+        "vla",
+        "vlm",
+        "mllm",
+        "multimodal",
+        "robot foundation model"
+      ]
+    }
+  ],
+  "project_profiles": {
+    "default": {
+      "name": "Current Project",
+      "description": "Robot manipulation project with strong interest in world models, diffusion policy, video pretraining, and transferable embodied methods.",
+      "keywords": [
+        "robot manipulation",
+        "bimanual",
+        "world model",
+        "diffusion",
+        "policy",
+        "video",
+        "action",
+        "latent action",
+        "sim2real",
+        "pretraining"
+      ]
+    }
+  },
+  "classic_topics": {
+    "world-action-model": [
+      {
+        "title": "Action-Conditional Video Prediction using Deep Networks in Atari Games",
+        "url": "https://arxiv.org/abs/1507.08750",
+        "authors": ["Oh et al."],
+        "published_at": "2015-07-30",
+        "summary": "Early action-conditioned predictive modeling work that learns future frames from observations and control inputs, making action representation an explicit part of the learned dynamics.",
+        "reason": "A foundational paper for treating environment dynamics as an action-conditioned predictive model."
+      },
+      {
+        "title": "Deep Visual Foresight for Planning Robot Motion",
+        "url": "https://arxiv.org/abs/1610.00696",
+        "authors": ["Finn and Levine"],
+        "published_at": "2016-10-03",
+        "summary": "Classical robotics paper that uses predictive visual dynamics models for planning, connecting video prediction to action selection in manipulation.",
+        "reason": "A key robotics precursor to modern world-model-based action planning."
+      },
+      {
+        "title": "World Models",
+        "url": "https://arxiv.org/abs/1803.10122",
+        "authors": ["Ha and Schmidhuber"],
+        "published_at": "2018-03-27",
+        "summary": "Canonical paper showing how compact latent world models can support policy learning in imagined rollouts.",
+        "reason": "The canonical modern starting point for latent world models in sequential decision making."
+      },
+      {
+        "title": "Learning Latent Dynamics for Planning from Pixels",
+        "url": "https://arxiv.org/abs/1811.04551",
+        "authors": ["Hafner et al."],
+        "published_at": "2018-11-11",
+        "summary": "PlaNet learns latent dynamics directly from pixels and performs planning inside the latent space, establishing a practical model-based RL template.",
+        "reason": "The paper that turned latent world models into a practical planning recipe."
+      },
+      {
+        "title": "Dream to Control: Learning Behaviors by Latent Imagination",
+        "url": "https://arxiv.org/abs/1912.01603",
+        "authors": ["Hafner et al."],
+        "published_at": "2019-12-03",
+        "summary": "Dreamer replaces online planning with policy optimization inside imagined latent trajectories, making world models a scalable behavior-learning backbone.",
+        "reason": "A milestone that unified world modeling and action learning through latent imagination."
+      },
+      {
+        "title": "Mastering Atari with Discrete World Models",
+        "url": "https://arxiv.org/abs/2010.02193",
+        "authors": ["Hafner et al."],
+        "published_at": "2020-10-05",
+        "summary": "DreamerV2 demonstrates that discrete latent world models can support high-performance action learning on challenging visual control benchmarks.",
+        "reason": "A strong bridge from classic latent world models to high-capacity action models."
+      }
+    ],
+    "robot-learning": [
+      {
+        "title": "A Survey of Robot Learning from Demonstration",
+        "url": "https://arxiv.org/abs/1908.03281",
+        "authors": ["Argall et al."],
+        "published_at": "2019-08-09",
+        "summary": "Survey on learning from demonstration and core robotics imitation learning foundations.",
+        "reason": "Good classic entry point for robot learning and imitation-style pipelines."
+      },
+      {
+        "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+        "url": "https://arxiv.org/abs/2303.04137",
+        "authors": ["Chi et al."],
+        "published_at": "2023-03-07",
+        "summary": "Representative modern policy-learning paper with strong downstream relevance to robot manipulation.",
+        "reason": "A strong anchor paper for current manipulation policy work."
+      }
+    ]
+  },
+  "transfer_domains": [
+    {
+      "slug": "video-distillation",
+      "name": "Video Distillation and Acceleration",
+      "keywords": [
+        "video distillation",
+        "video acceleration",
+        "token pruning",
+        "distillation",
+        "compression",
+        "efficient video"
+      ],
+      "target_hint": "May transfer to robot video pretraining or efficient world-model training."
+    },
+    {
+      "slug": "autonomous-driving",
+      "name": "Autonomous Driving",
+      "keywords": [
+        "autonomous driving",
+        "driving policy",
+        "trajectory prediction",
+        "planning",
+        "occupancy"
+      ],
+      "target_hint": "Can sometimes transfer as planning or structured perception methods."
+    }
+  ],
+  "negative_keywords": [
+    "medical imaging",
+    "protein",
+    "weather forecast",
+    "quantum chemistry"
+  ],
+  "data_sources": {
+    "arxiv_categories": ["cs.RO", "cs.CV", "cs.AI", "cs.LG"],
+    "hf_daily_limit": 50,
+    "hf_trending_limit": 50,
+    "arxiv_max_results": 80
+  },
+  "filtering": {
+    "top_n": 24,
+    "min_score": 2
+  },
+  "automation": {
+    "auto_refresh_indexes": true
+  }
+}

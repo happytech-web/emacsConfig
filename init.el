@@ -37,9 +37,11 @@
 
 ;; Load local modules from ~/.emacs.d/modules/
 (add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/coding/" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "modules/search-prompt/" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "modules/dev/" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "modules/org/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/tab-bar/" user-emacs-directory))
 
 ;; Basic UX defaults.
 (setq inhibit-startup-screen t
@@ -145,10 +147,16 @@
   (require 'init-emacs-dev)
   (require 'init-org-core)
   (require 'init-org-ui)
+  (require 'init-org-roam)
+  (require 'init-org-paper)
+  (require 'init-org-download)
+  (require 'init-org-export)
   (require 'init-markdown)
   (require 'init-svg-tag)
+  (require 'init-typst)
   (require 'init-dired)
   (require 'init-dirvish)
+  (require 'init-tab-bar)
   (require 'init-treesitter)
   (require 'init-direnv)
   (require 'init-eglot)

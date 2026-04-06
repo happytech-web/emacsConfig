@@ -7,4 +7,9 @@
 !Readme.org
 !/modules/
 !/modules/**
+!/agent/
+!/agent/**
 /modules/.env.el
+__pycache__/
+*.pyc
+agent/dailypaper/state/latest-*.json

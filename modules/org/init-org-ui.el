@@ -49,7 +49,8 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
 (defun my/org-ui-mode-setup ()
   "Enable org UI defaults for writing."
   (variable-pitch-mode 1)
-  (face-remap-add-relative 'variable-pitch :family "Spectral")
+  ;; (face-remap-add-relative 'variable-pitch :family "Spectral")
+  (face-remap-add-relative 'variable-pitch :family "Kalam")
   (setq-local line-spacing 0.2))
 
 (defun my/org-center-document ()

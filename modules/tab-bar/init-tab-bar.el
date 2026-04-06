@@ -67,14 +67,13 @@
   ;;             #'(lambda (&rest _) (force-mode-line-update))))
   )
 
-(rune/leader-keys
-  "t" '(:ignore t :which-key "tab-bar")
-  "th" '(tab-bar-switch-to-prev-tab :which-key "prev-tab") 
-  "tl" '(tab-bar-switch-to-next-tab :which-key "next-tab") 
-  "ti" '(tab-bar-new-tab :which-key "insert-new-tab") 
-  "ts" '(tab-bar-select-tab-by-name :which-key "select-tab")
-  "td" '(tab-bar-close-tab :which-key "close-tab")
-  )
+(define-prefix-command 'my/tab-bar-prefix-map)
+(global-set-key (kbd "C-c t") 'my/tab-bar-prefix-map)
+(define-key my/tab-bar-prefix-map (kbd "h") #'tab-bar-switch-to-prev-tab)
+(define-key my/tab-bar-prefix-map (kbd "l") #'tab-bar-switch-to-next-tab)
+(define-key my/tab-bar-prefix-map (kbd "i") #'tab-bar-new-tab)
+(define-key my/tab-bar-prefix-map (kbd "s") #'tab-bar-select-tab-by-name)
+(define-key my/tab-bar-prefix-map (kbd "d") #'tab-bar-close-tab)
 
 (provide 'init-tab-bar)
 ;;; init-tab-bar.el ends here

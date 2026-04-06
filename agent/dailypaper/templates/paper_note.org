@@ -1,0 +1,76 @@
+:PROPERTIES:
+:ID:       {uuid}
+:END:
+#+title: {title}
+#+filetags: :paper:
+
+* Metadata
+:PROPERTIES:
+:TYPE: paper
+:SOURCE_URL: {url}
+:ARXIV_ID: {arxiv_id}
+:DOI: {doi}
+:PDF_PATH: {pdf_path}
+:BIB_KEY: {bib_key}
+:TIME_RANGE: {time_range}
+:RECOMMEND_BUCKET: {bucket}
+:RELATED_AREA: {related_area}
+:RELATED_PROJECT: {related_project}
+:CLASSIC_OF: {classic_of}
+:TRANSFER_HINT: {transfer_hint}
+:END:
+
+* Summary
+{summary}
+
+* Recommend Reason
+{reason}
+
+* 一句话总结
+{one_line_summary}
+
+* 核心贡献
+{core_contributions}
+
+* 问题背景
+** 要解决的问题
+{problem_statement}
+** 现有方法的局限
+{method_limits}
+** 本文的动机
+{motivation}
+
+* 方法详解
+** 整体框架
+{framework}
+** 核心模块
+{core_modules}
+** 关键公式
+{key_formulas}
+
+* 实验结果
+{experiments}
+
+* 批判性思考
+** 优点
+{strengths}
+** 局限性
+{limitations}
+** 潜在改进
+{improvements}
+
+* 相关工作
+{related_work}
+
+* 后续阅读
+{follow_up}
+
+* Key Figures
+{figure_block}
+
+* Action Items
+** TODO Read full paper :paper:reading:
+** TODO Extract reusable ideas :paper:review:
+
+* Links
+- Source: {url}
