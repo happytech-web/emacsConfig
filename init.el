@@ -38,10 +38,11 @@
 ;; Load local modules from ~/.emacs.d/modules/
 (add-to-list 'load-path (expand-file-name "modules/" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "modules/coding/" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "modules/search-prompt/" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "modules/dev/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/explore/" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "modules/org/" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "modules/tab-bar/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/ui/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/doc/" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "modules/keybinding/" user-emacs-directory))
 
 ;; Basic UX defaults.
 (setq inhibit-startup-screen t
@@ -160,6 +161,7 @@
   (require 'init-treesitter)
   (require 'init-direnv)
   (require 'init-eglot)
+  (require 'init-rice-coding)
   (require 'init-meow)
   (require 'init-advancedUI)
   (require 'init-magit)

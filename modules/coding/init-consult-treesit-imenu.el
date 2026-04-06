@@ -281,9 +281,10 @@
         (imenu--index-alist nil))
     (apply fn args)))
 
+(keymap-global-set "C-c l s" #'my/consult-imenu-treesit)
+
 (with-eval-after-load 'consult
-  (advice-add 'consult-imenu :around #'my/consult-imenu--treesit-settings)
-  (keymap-global-set "C-c l s" #'my/consult-imenu-treesit))
+  (advice-add 'consult-imenu :around #'my/consult-imenu--treesit-settings))
 
 (provide 'init-consult-treesit-imenu)
 ;;; init-consult-treesit-imenu.el ends here

@@ -92,15 +92,27 @@
    '("z" . meow-pop-selection)
    '("'" . repeat)
    '("<escape>" . ignore)))
-  :config
-  (my/meow-setup)
-  ;; Per-mode state overrides.
-  ;; Help/Message buffers are more convenient in normal state.
-  (setf (alist-get 'org-mode meow-mode-state-list) 'normal)
-  (setf (alist-get 'help-mode meow-mode-state-list) 'normal)
-  (setf (alist-get 'helpful-mode meow-mode-state-list) 'normal)
-  (setf (alist-get 'messages-buffer-mode meow-mode-state-list) 'normal)
-  (meow-global-mode 1))
+   :config
+   (defun my/tab-fold-toggle ()
+     "Toggle fold if treesitter-context-fold-mode is active, else indent."
+     (interactive)
+     (if (bound-and-true-p treesitter-context-fold-mode)
+         (treesitter-context-fold-toggle)
+       (indent-for-tab-command)))
+
+   (my/meow-setup)
+   ;; Per-mode state overrides.
+   ;; Help/Message buffers are more convenient in normal state.
+   (setf (alist-get 'org-mode meow-mode-state-list) 'normal)
+   (setf (alist-get 'help-mode meow-mode-state-list) 'normal)
+   (setf (alist-get 'helpful-mode meow-mode-state-list) 'normal)
+   (setf (alist-get 'messages-buffer-mode meow-mode-state-list) 'normal)
+   (add-hook 'prog-mode-hook
+             (lambda ()
+               (meow-normal-define-key
+                '("TAB" . my/tab-fold-toggle)
+                '("<backtab>" . my/fold-cycle))))
+   (meow-global-mode 1))
 
 (provide 'init-meow)
 ;;; init-meow.el ends here
