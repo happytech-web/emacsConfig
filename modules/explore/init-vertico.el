@@ -34,10 +34,23 @@
   (vertico-posframe-border-width 8)
   (vertico-posframe-parameters
    '((left-fringe . 8)
-     (right-fringe . 8)))
-  :init
+     (right-fringe . 8))))
+
+(use-package vertico-multiform
+  :straight nil
+  :after (vertico vertico-posframe)
+  :config
+  (setq vertico-multiform-commands
+        '(
+          ;; xref 用底部 minibuffer 而非 posframe
+          (xref-find-definitions (:not posframe))
+          (xref-find-references  (:not posframe))
+          (consult-xref           (:not posframe))
+          ;; 其他命令用 posframe
+          (t posframe)))
+  ;; 图形界面才启用 multiform（posframe 依赖图形）
   (when (display-graphic-p)
-    (vertico-posframe-mode 1)))
+    (vertico-multiform-mode 1)))
 
 (use-package marginalia
   :straight t
@@ -58,8 +71,10 @@
          ("C-x b" . consult-buffer)
          ("M-y" . consult-yank-pop)
          ("C-c i" . consult-imenu)
-	 ("C-c s r" . consult-ripgrep)
-	 ))
+ 	 ("C-c s r" . consult-ripgrep))
+  :config
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref))
 
 (use-package consult-eglot
   :straight t

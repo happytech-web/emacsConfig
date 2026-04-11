@@ -118,14 +118,11 @@
            nil)))
       (nreverse result)))
 
-  (defun my/fold-cycle ()
+  (defun my/fold-cycle--impl ()
     "Cycle: all open -> overview (top-level only) -> content (children visible) -> all open."
-    (interactive)
-    (cond
-     ((or (not (bound-and-true-p treesitter-context-fold-mode))
-          (not (treesit-available-p)))
-      (user-error "Fold not available in this buffer"))
-     ((= my/fold-cycle-state 0)
+     (interactive)
+     (cond
+      ((= my/fold-cycle-state 0)
       (dolist (node (my/fold--get-top-level-nodes))
         (my/fold--fold-node node))
       (setq my/fold-cycle-state 1)

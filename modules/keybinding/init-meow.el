@@ -94,11 +94,22 @@
    '("<escape>" . ignore)))
    :config
    (defun my/tab-fold-toggle ()
-     "Toggle fold if treesitter-context-fold-mode is active, else indent."
      (interactive)
-     (if (bound-and-true-p treesitter-context-fold-mode)
-         (treesitter-context-fold-toggle)
-       (indent-for-tab-command)))
+     (cond
+      ((bound-and-true-p treesitter-context-fold-mode)
+       (treesitter-context-fold-toggle))
+      ((derived-mode-p 'org-mode)
+       (org-cycle))
+      (t (indent-for-tab-command))))
+
+   (defun my/fold-cycle ()
+     (interactive)
+     (cond
+      ((bound-and-true-p treesitter-context-fold-mode)
+       (my/fold-cycle--impl))
+      ((derived-mode-p 'org-mode)
+       (org-shifttab))
+      (t (user-error "Fold not available in this buffer"))))
 
    (my/meow-setup)
    ;; Per-mode state overrides.
