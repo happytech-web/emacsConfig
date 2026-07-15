@@ -1,3 +1,0 @@
-display_name: Daily Paper
-short_description: Org-roam paper recommendations and paper-note generation
-default_prompt: Recommend recent, classic, or transferable papers and write the results into org-roam daily and paper-note files.

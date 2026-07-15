@@ -4,8 +4,7 @@
   :straight nil
   :ensure nil
   :mode ("\\.org\\'" . org-mode)
-  :hook ((org-mode . visual-line-mode)
-         (org-mode . auto-fill-mode))
+  :hook ((org-mode . visual-line-mode))
   :custom
   (org-startup-indented nil)
   (org-log-done 'time)

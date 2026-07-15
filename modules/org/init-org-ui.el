@@ -55,7 +55,7 @@ Prose uses `variable-pitch' (LXGW from init-basicUI), code-like parts use
 
 (defun my/org-center-document ()
   "Center org document with a readable text width."
-  (setq-local visual-fill-column-width 110
+  (setq-local visual-fill-column-width 120
               visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
